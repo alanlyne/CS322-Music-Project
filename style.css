@@ -1,14 +1,63 @@
-.body{
-  width: 100%; 
-    height: 100vh; 
+@import "https://use.fontawesome.com/releases/v5.5.0/css/all.css";
+
+body {
+  display: table;
+  width: 100%;
+  height: 100%;
+  background-color: #191414;
+  color: #191414;
+  line-height: 1.6;
+  position: relative;
+  font-family: sans-serif;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
 }
-div {
-  position:absolute;
-    top:0;
-    left:0;
-    bottom:0;
-    right:0;
-    height:100%;
-    width:100%;
-    
-  }
+
+div.container4 {
+  height: 10em;
+  position: relative }
+div.container4 p {
+  margin: 0;
+  background: yellow;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-right: -50%;
+  transform: translate(-50%, -50%) }
+
+
+/* Navigation Bar */
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #333;
+}
+
+li {
+  float: left;
+}
+
+li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+li a:hover:not(.active) {
+  background-color: #191414;
+}
+
+ul.topnav li.right {
+  float: right;
+}
+
+.active {
+  background-color: #1DB954;
+}
+
