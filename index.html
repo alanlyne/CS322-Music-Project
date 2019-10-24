@@ -12,9 +12,9 @@
     </div>
 
     <ul class="topnav">
-        <li><a class="active" href="#home">Obscurify</a></li>
-        <li><a href="#news">Future Projects</a></li>
-        <li><a href="#contact">About</a></li>
+        <li><a class="active" onclick="isSigned('#home')">Obscurify</a></li>
+        <li><a onclick="isSigned('#news')">Future Projects</a></li>
+        <li><a onclick="isSigned('#contact')">About</a></li>
         <li class="right"><a href="#signout">Sign Out</a></li>
     </ul>
 
@@ -27,3 +27,20 @@
 </body>
 
 </html>
+
+<script>
+
+function isSigned(link) {
+    //will call spotify object 
+    var a = false
+
+    if(a == true)
+        location.replace(link)
+    else{
+        window.alert("Please Sign In")
+        location.replace('#signin')
+    }
+
+}
+
+</script>
