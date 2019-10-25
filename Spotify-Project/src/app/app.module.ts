@@ -3,18 +3,20 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
-import { AppRoutingModule } from './app-routing.module';
+
 import { AppComponent } from './app.component';
 import { AuthComponent } from './auth/auth.component'
+import { ArtistComponent } from './artist/artist.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    AuthComponent
+    AuthComponent,
+    ArtistComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,
+    
     FormsModule,
     HttpClientModule
   ],
