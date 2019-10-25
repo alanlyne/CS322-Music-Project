@@ -1,46 +1,62 @@
 <html lang="en">
-<title>Obscurify</title>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="style.css">
+  <title>Obscurify</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
-<body>
+  <body>
     <div class="lines">
-        <div class="line"></div>
-        <div class="line"></div>
-        <div class="line"></div>
+      <div class="line"></div>
+      <div class="line"></div>
+      <div class="line"></div>
     </div>
 
     <ul class="topnav">
-        <li><a class="active" onclick="isSigned('#home')">Obscurify</a></li>
-        <li><a onclick="isSigned('#news')">Future Projects</a></li>
-        <li><a onclick="isSigned('#contact')">About</a></li>
-        <li class="right"><a href="#signout">Sign Out</a></li>
+      <li><a class="active" onclick="isSigned('#home')">Obscurify</a></li>
+      <li><a onclick="isSigned('#news')">Future Projects</a></li>
+      <li><a onclick="isSigned('#contact')">About</a></li>
+      <li class="right"><a href="#signout">Sign Out</a></li>
     </ul>
 
-    <div class=container4>
-        <p> Spotify Stuff go here</p>!
+    <div class="container4">
+      <p>Spotify Stuff go here!</p>
     </div>
 
-</body>
+    <div id="wrapper">
+      <button>Search Genre</button>
+    </div>
+    <div></div>
 
-</body>
-
+    <div class="container1">
+      <p id="demo"></p>
+    </div>
+  </body>
 </html>
 
 <script>
+    var obj = JSON.parse(return.json);
 
-function isSigned(link) {
-    //will call spotify object 
-    var a = false
+  $(document).ready(function() {
+    $("button").click(function() {
+      $.getJSON("return.json", function(result) {
+        $.each(result, function(i, field) {
+          $("div").append(field + " ");
+        });
+      });
+    });
+  });
+</script>
 
-    if(a == true)
-        location.replace(link)
-    else{
-        window.alert("Please Sign In")
-        location.replace('#signin')
+<script>
+  function isSigned(link) {
+    //will call spotify object
+    var a = false;
+
+    if (a == true) location.replace(link);
+    else {
+      window.alert("Please Sign In");
+      location.replace("#signin");
     }
-
-}
-
+  }
 </script>
