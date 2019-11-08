@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { catchError, tap, map } from 'rxjs/operators';
 
 import { ArtistComponent } from './artist.component';
-import { Iartist } from './artist';
+import { IArtist } from './artist';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
@@ -67,7 +67,7 @@ export class ArtistService{
 
     }
 
-    getArtists(): Iartist[] {
+    getArtists(): IArtist[] {
         return this.st.artists.items;
         // return this.http.get<Iartist[]>(this.requestUrl)
         //   .pipe(

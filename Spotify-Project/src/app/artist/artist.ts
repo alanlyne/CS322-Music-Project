@@ -1,4 +1,10 @@
-export interface Iartist{
-    name:string;
+import { IFollower } from './follower';
+import { IImage } from './image';
 
+export interface IArtist{
+    genres: string[];
+    followers: IFollower;
+    images: IImage[];
+    name:string;   
+    popularity: number; 
 }
