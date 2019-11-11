@@ -1,4 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
+
+/* Entire Site */
 body {
     background-color: #191414;
     color: #FFFFFF;
@@ -7,8 +9,24 @@ body {
         Meiryo,MS Gothic,sans-serif;
 }
 
-.albumCover {
+/* Album Cover Image size */
+.artistImageSize {
     width: 200px !important;
     height: 200px !important;
 
+}
+
+/* DIV containing all Artist Images*/
+.artistImageWrap {
+    width: 100%;
+    overflow: hidden;
+}
+
+.artistImage {
+    float: left;
+    padding: 25px;
+}
+
+.artistImageArtistName {
+    text-align: center;
 }

@@ -27,6 +27,9 @@ export class ArtistComponent implements OnInit {
 
       this.artistList.forEach(artist => {
         console.log(artist.images.length > 0 ? artist.images[2].url : "no image found")
+
+
+
       });
       
     }
@@ -38,7 +41,12 @@ export class ArtistComponent implements OnInit {
     });
   }
 
-  
+
+  increaseMaxCount(): void {
+    this.maxCount += 5;
+  }
+
+  maxCount: number = 5;
   imageBoolean: boolean = false;
   imageTest: string = "";
   artistLink: string = "";
