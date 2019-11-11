@@ -15,8 +15,8 @@ def get_token(code):
         'code':code,
         'redirect_uri':"http://localhost:8080/tester"
     }    
-    client_id = 
-    client_secret = 
+    client_id = "e24f768d9a5346509dd81d3f6811bd66"
+    client_secret = "bb5e0f916dcc4ccb953833c2cdc7f2b3"
 
 
    

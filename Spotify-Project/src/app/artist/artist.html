@@ -1,7 +1,54 @@
 <button (click) = "getArtists()">Click Me</button>
+<!--Calls artists.component.ts which then calls service -->
 
 
 <div class="form-group row">
     <label for="exampleSelect1" class="col-xs-2 col-form-label">My HTML code</label>
-    <div *ngIf="htmlYouWantToAdd" [innerHTML]="htmlYouWantToAdd">    
+    <!--<div *ngIf="htmlYouWantToAdd" [innerHTML]="htmlYouWantToAdd">   -->
 </div>
+
+<!-- <div *ngIf="imageBoolean">
+
+        <span *ngFor="let i of artistList">{{i.name}} </span>
+
+    
+
+    <a [href]=artistLink>
+        <img [src]=imageTest [title]=artistName>
+    </a>
+    <div [innerHTML]="artistName"></div>
+
+    
+</div> -->
+
+<div *ngIf = "imageBoolean" style="width: 100%; overflow: hidden;">
+    <div *ngFor="let i of artistList; let x = index" class="row">
+        
+        <div *ngIf ="x % 2 == 0">
+            Even and works {{x}}
+        </div>
+        <div *ngIf ="x % 2 != 0">
+            Odd and works  {{x}}
+        </div>
+
+
+
+        <!-- <a [href] = i.external_urls.spotify>
+                <img [src] = "i.images.length > 0 ? i.images[1].url : 'http://i.imgur.com/nszu54A.jpg' " [title]=i.name alt="" class="albumCover">
+            </a>
+            <div [innerHTML] = "i.name"></div> -->
+
+
+    </div>
+</div>
+
+
+
+
+<!--
+    Image as a link 
+<a href="https://www.w3schools.com">
+<img border="0" alt="W3Schools" src="logo_w3s.gif" width="100" height="100">
+</a>
+
+-->
