@@ -4,22 +4,10 @@
 <!-- Wrapped div because can't have two ng's in one div, Checks if button was clicked -->
 <div *ngIf = "imageBoolean" class="artistImageWrap row">
     <!-- Loop through every artist from JSON file -->
-    
-
     <div name="rows" *ngFor="let i of artistList; let x = index">    
-
         <div  class="artistImage col" >
             <!-- Album Cover Art which is a link -->
-
-           
-
-
-
-
-
             <div *ngIf ="x < maxCount" class="row test" >
-
-
                 <div class="col" >
                     <a [href] = i.external_urls.spotify target="_blank">
                         <img [src] = "i.images.length > 0 ? i.images[0].url : 'http://i.imgur.com/nszu54A.jpg' " [title]=i.name alt="" class="artistImageSize">
@@ -28,19 +16,15 @@
                 </div>
             </div>
         </div>
-
     </div>
-
-
-
 </div>
 
 <div *ngIf = "imageBoolean" class="row">
-<div class="col-3"></div>
-<div  class="viewMoreDiv col-6" style=" text-align: center;">
-    <button (click) = "increaseMaxCount()" class="viewMore">WANT MORE?</button>
-</div>
-<div class="col-3"></div>
+    <div class="col-3"></div>
+    <div  class="viewMoreDiv col-6" style=" text-align: center;">
+        <button (click) = "increaseMaxCount()" class="viewMore">WANT MORE?</button>
+    </div>
+    <div class="col-3"></div>
 </div>
 
 
