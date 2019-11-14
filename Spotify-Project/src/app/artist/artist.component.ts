@@ -19,7 +19,7 @@ export class ArtistComponent implements OnInit {
 
     if(this.artistList[0].images[0].url != "") {
       this.imageTest = this.artistList[0].images[2].url;
-      this.artistLink = this.artistList[0].external_urls.spotify;
+      //this.artistLink = this.artistList[0].external_urls.spotify;
       this.artistName = this.artistList[0].name;
       console.log(this.imageTest)
       this.imageBoolean = true;
