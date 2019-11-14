@@ -17,10 +17,10 @@
 
 
 
-            <div *ngIf ="x < maxCount" class="row test">
+            <div *ngIf ="x < maxCount" class="row test" >
 
 
-                <div class="col" style="padding-left: 28%;">
+                <div class="col" >
                     <a [href] = i.external_urls.spotify target="_blank">
                         <img [src] = "i.images.length > 0 ? i.images[0].url : 'http://i.imgur.com/nszu54A.jpg' " [title]=i.name alt="" class="artistImageSize">
                     </a>
