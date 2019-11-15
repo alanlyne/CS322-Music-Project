@@ -1853,9 +1853,13 @@ export class ArtistService{
 
     }
 
-    getArtists(): IArtist[] {
+    getArtists(index:number): IArtist[] {
       //console.log(this.st.artists);
-        return this.st.artists.items;
+      let artists = [];
+      for(var i = index; i < index+5; i++){
+        artists.push(this.st.artists.items[i]);
+      }
+        return artists;
         // return this.http.get<Iartist[]>(this.requestUrl)
         //   .pipe(
         //     tap(data => console.log('All: ' + JSON.stringify(data)))
