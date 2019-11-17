@@ -5,80 +5,105 @@ import sys
 import spotipy
 import os
 from flask import Flask, request
-from spotipy.oauth2 import SpotifyClientCredentials
-
+from spotipy import  oauth2
+import spotipy.util as util
 
 app = Flask(__name__)
 
-class SpotifyApi:
-    client_id = None
-    client_secret = None
-    def __init__(self, user_code):
-        self.user_code = user_code
-        self.token = get_token(user_code)
+client_id = sys.argv[1] 
+client_secret = sys.argv[2] 
+redirect_uri = 'http://localhost:8080/tester'
 
-    def get_token(self, user_code):
-        """
-        search DB
-        """
-        return generate_token(user_code)
+#client_id=''
+#client_secret=''
+os.environ['SPOTIPY_CLIENT_ID'] = client_id
+os.environ['SPOTIPY_CLIENT_SECRET'] = client_secret
+os.environ['SPOTIPY_REDIRECT_URI'] = redirect_uri
 
-def generate_token(self, user_code):
-    url="https://accounts.spotify.com/api/token"
-    data={
-        'grant_type': 'client_credentials',
-        'code':user_code,
-        'redirect_uri':"http://localhost:8080/tester"
-    }    
-    client_id = self.client_id
-    client_secret = self.client_secret
+class SpotifyApi(object):
+    
+    client_id = os.environ['SPOTIPY_CLIENT_ID']
+    client_secret = os.environ['SPOTIPY_CLIENT_SECRET']
+    redirect_uri = os.environ['SPOTIPY_REDIRECT_URI']  
+    _id = oauth2.SpotifyOAuth(client_id, client_secret, redirect_uri)
+    client_test= oauth2.SpotifyClientCredentials()
+    def generate_token(self, user_code):
+        url="https://accounts.spotify.com/api/token"
+        data={
+            'grant_type': 'client_credentials',
+            #'grant_type': 'authorization_code',
+            'code':user_code,
+            'redirect_uri':"http://localhost:8080/tester"
+        }    
+    
 
-    response=requests.post(url, data=data, auth = (client_id, client_secret)) 
-    print("-------------------------------------")
-    print(response.status_code)
-    print("-------------------------------------")
+        response=requests.post(url, data=data, auth = (self.client_id, self.client_secret)) 
+    
 
-    return response
+        return response.json()
+    def get_spotify_toolbox(self, requesting):
+        #auth_obj = oauth2.SpotifyOAuth(client_id, client_secret, redirect_uri):
+        if 'code' in requesting.args:
+            code = requesting.args.get('code')
+        
+        elif 'error' in request.args:
+            code = requesting.args.get('error')
+            raise code
+        else:
+            code = "This was unexpected, where my queries at?"
+
+        #token=self._id.get_access_token(code)
+        #print("----------------token-----------------")
+                #print(token)
+
+        token = self.generate_token(code)
+
+        token = token['access_token']
+        #spotify_toolbox = spotipy.Spotify(client_credentials_manager=self._id, auth=token)
+
+        spotify_toolbox = spotipy.Spotify(client_credentials_manager=self.client_test)
+        print("-------------------------------------")
+        return spotify_toolbox
+
+
+
+
+
 
 @app.route('/login')
 def login():    
-    if 'code' in request.args:
-        code = request.args.get('code')
-        response = generate_token(code)
-        json_response = response.json()
-        return json_response
-    if 'error' in request.args:
-        code = request.args.get('error')
-    else:
-        code = "This was unexpected, where my queries at?"
-    #count = get_hit_count()
-    return code
+    toolbox = SpotifyApi().get_spotify_toolbox(request)
+    return "hi"
+
+    
 
 @app.route('/search')
 def search():
+    toolbox = SpotifyApi().get_spotify_toolbox(request)
 
-    spotify = spotipy.Spotify()
 
     q="genre:Rock" #year:1981
-    results = spotify.search('Radiohead')
+    results = toolbox.search('Radiohead')
     #results = spotify.search(q,limit=10,offset= 9000,type="artist",market="IE")
     return results
 
-if __name__=='__main__':
-    #SpotifyApi.client_id = sys.argv[1] 
-    #SpotifyApi.client_secret = sys.argv[2] 
-    os.environ['SPOTIPY_CLIENT_ID'] = sys.argv[1]
-    os.environ['SPOTIPY_CLIENT_SECRET'] = sys.argv[2]
-    os.environ['SPOTIPY_REDIRECT_URI'] = 'http://localhost:8080/tester'
 
+
+if __name__=='__main__':
+
+    print (SpotifyApi.client_id)
     """spotipy.client.SpotifyOAuth(    
         client_id=sys.argv[1],
         client_secret=sys.argv[2] ,
         redirect_uri='http://localhost:8080/tester')
     """
 
+    """
+    auth_obj = oauth2.SpotifyOAuth(client_id, client_secret, redirect_uri):
+    token=auth_obj.get_access_token(code)
 
-    client_credentials_manager = SpotifyClientCredentials()
-    sp = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
-
+    #client_credentials_manager = oauth2.SpotifyClientCredentials()
+    spotify_toolbox = spotipy.Spotify(client_credentials_manager=auth_obj, auth=token)
+    """
     app.run(host='0.0.0.0', port=8080)
+
