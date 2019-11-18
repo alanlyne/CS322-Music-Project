@@ -7,6 +7,7 @@ import os
 from flask import Flask, request
 from spotipy import  oauth2
 import spotipy.util as util
+from flask.json import jsonify
 
 app = Flask(__name__)
 
@@ -85,7 +86,7 @@ def search():
     q="genre:Rock" #year:1981
     results = toolbox.search('Radiohead')
     #results = spotify.search(q,limit=10,offset= 9000,type="artist",market="IE")
-    return results
+    return jsonify(results)
 
 
 
