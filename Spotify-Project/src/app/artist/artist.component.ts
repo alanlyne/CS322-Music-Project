@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { ArtistService } from "./artist.service";
-import { Iartist } from "./artist";
+import { IArtist } from "./artist";
 
 @Component({
   selector: "pm-artist",
@@ -8,7 +8,7 @@ import { Iartist } from "./artist";
   styleUrls: ["artist.css"]
 })
 export class ArtistComponent implements OnInit {
-  artistList: Iartist[] = [];
+  artistList: IArtist[] = [];
 
   constructor(private artsitService: ArtistService) {}
   ngOnInit(): void {}
@@ -23,6 +23,15 @@ export class ArtistComponent implements OnInit {
 
   private addHTML() {
     this.artistList = this.artsitService.getArtists();
+    this.artistList.forEach(element => {
+      this.htmlYouWantToAdd+=element.name + "</br>"
+    });
+  }
+
+  search(): void {
+    this.artsitService.SearchArtist().subscribe(res => {
+      this.artistList = res;
+    });
   }
   
 }

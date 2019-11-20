@@ -1,4 +1,4 @@
-export interface Iartist{
+export interface IArtist{
     name:string;
 
 }

@@ -8,15 +8,17 @@ from flask import Flask, request
 from spotipy import  oauth2
 import spotipy.util as util
 from flask.json import jsonify
+from flask_cors import CORS
 
 app = Flask(__name__)
-
-client_id = sys.argv[1] 
-client_secret = sys.argv[2] 
+#cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
+CORS(app)
+# client_id = sys.argv[1] 
+# client_secret = sys.argv[2] 
 redirect_uri = 'http://localhost:8080/tester'
 
-#client_id=''
-#client_secret=''
+client_id = ''
+client_secret = ''
 os.environ['SPOTIPY_CLIENT_ID'] = client_id
 os.environ['SPOTIPY_CLIENT_SECRET'] = client_secret
 os.environ['SPOTIPY_REDIRECT_URI'] = redirect_uri
@@ -78,15 +80,17 @@ def login():
 
     
 
-@app.route('/search')
+@app.route('/search', methods = ['GET', 'POST'])
 def search():
     toolbox = SpotifyApi().get_spotify_toolbox(request)
+    if request.is_json:
+        content = request.get_json()
+        print(content)
+        toolbox = SpotifyApi().get_spotify_toolbox(request)
+        results = toolbox.search(q="genre: "+content.get('genre'),limit=10,offset=1,type="artist",market="IE")
+        return jsonify(results)
 
-
-    q="genre:Rock" #year:1981
-    results = toolbox.search('Radiohead')
-    #results = spotify.search(q,limit=10,offset= 9000,type="artist",market="IE")
-    return jsonify(results)
+    return("NO JSON OBJ IN POST")
 
 
 
@@ -106,5 +110,6 @@ if __name__=='__main__':
     #client_credentials_manager = oauth2.SpotifyClientCredentials()
     spotify_toolbox = spotipy.Spotify(client_credentials_manager=auth_obj, auth=token)
     """
+    
     app.run(host='0.0.0.0', port=8080)
 
