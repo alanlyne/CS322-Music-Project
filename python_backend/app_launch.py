@@ -83,12 +83,15 @@ def login():
 @app.route('/search', methods = ['GET', 'POST'])
 def search():
     toolbox = SpotifyApi().get_spotify_toolbox(request)
+    if request.is_json:
+        content = request.get_json()
+        print(content)
+        toolbox = SpotifyApi().get_spotify_toolbox(request)
 
+        results = toolbox.search(content,limit=10,offset=1,type="artist",market="IE")
+        return jsonify(results)
 
-    q="genre:Rock" #year:1981
-    #results = toolbox.search('Radiohead')
-    results = toolbox.search(q,limit=10,offset= 9000,type="artist",market="IE")
-    return jsonify(results)
+    return("NO JSON OBJ IN POST")
 
 
 
