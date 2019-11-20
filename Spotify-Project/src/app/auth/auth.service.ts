@@ -13,12 +13,12 @@ export class AuthService {
     }
 
     client_id = "825fb8e2f83e479e8823d725c9a2dc22";
-    redirect_uri: string = "http://localhost:8080/tester";
-    url: string = "https://accounts.spotify.com/authorize?client_id=" + this.client_id + "&response_type=code&redirect_uri=" + this.redirect_uri + "&scope=user-read-private%20user-read-email&state=34fFs29kd09";
+    redirect_uri: string = "http://localhost:8080/search";
+    //url: string = "https://accounts.spotify.com/authorize?client_id=" + this.client_id + "&response_type=code&redirect_uri=" + this.redirect_uri + "&scope=user-read-private%20user-read-email&state=34fFs29kd09";
     //url:string ="http://localhost:8080/tester";
 
     authorize(): void {
 
-      window.location.href=this.url;
+      window.location.href=this.redirect_uri;
     }
 }

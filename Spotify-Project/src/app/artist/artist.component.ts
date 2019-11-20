@@ -23,7 +23,6 @@ export class ArtistComponent implements OnInit {
 
   private addHTML() {
     this.artistList = this.artsitService.getArtists();
-    this.htmlYouWantToAdd = "cunt";
   }
   
 }
