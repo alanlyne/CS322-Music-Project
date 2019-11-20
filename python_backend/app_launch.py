@@ -11,12 +11,12 @@ from flask.json import jsonify
 
 app = Flask(__name__)
 
-client_id = sys.argv[1] 
-client_secret = sys.argv[2] 
+# client_id = sys.argv[1] 
+# client_secret = sys.argv[2] 
 redirect_uri = 'http://localhost:8080/tester'
 
-#client_id=''
-#client_secret=''
+client_id=''
+client_secret=''
 os.environ['SPOTIPY_CLIENT_ID'] = client_id
 os.environ['SPOTIPY_CLIENT_SECRET'] = client_secret
 os.environ['SPOTIPY_REDIRECT_URI'] = redirect_uri

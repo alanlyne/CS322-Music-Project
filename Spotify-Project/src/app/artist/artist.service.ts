@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { catchError, tap, map } from 'rxjs/operators';
 
 import { ArtistComponent } from './artist.component';
-import { Iartist } from './artist';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { IArtist } from './artist';
+import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -11,7 +11,7 @@ import { Observable } from 'rxjs';
 })
 export class ArtistService{
 
-    requestUrl = 'artists.json';
+    requestUrl = 'localhost:8080/search';
     st = {
         "artists": {
           "href": "https://api.spotify.com/v1/search?query=Muse&type=artist&market=US&offset=0&limit=1",
@@ -67,11 +67,37 @@ export class ArtistService{
 
     }
 
-    getArtists(): Iartist[] {
-        return this.st.artists.items;
-        // return this.http.get<Iartist[]>(this.requestUrl)
-        //   .pipe(
-        //     tap(data => console.log('All: ' + JSON.stringify(data)))
-        //   );
-      }
+    getArtists(): IArtist[] {
+      return this.st.artists.items;
+      // return this.http.get<Iartist[]>(this.requestUrl)
+      //   .pipe(
+      //     tap(data => console.log('All: ' + JSON.stringify(data)))
+      //   );
+    }
+
+    headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      'Authorization': 'Bearer BQD_cXQ7c2fmPZk1lOnc9wOaUFY99Ze8WmNYFqp3bfM8YR0kUql1VY4m_sMpcc9KR1c-73Z7Glia3IHwzqJTkX_lo1MOcp4FgnerCHfCCiPl4UVwH6ioPcaZJhxaDoxaf7ouWYXcSTGf23N0zdRW8BfVsPTv8CeEXSQ'
+    });
+
+    data = {
+      "genre":"Rock",
+      "year": "1980"
+    }
+
+    SearchArtist(): Observable<IArtist[]> {
+
+      this.http.post<IArtist[]>(
+          this.requestUrl, 
+          JSON.stringify(this.data), 
+          {headers: this.headers}
+        ).subscribe(res =>{
+          return res;
+        },
+        () => {
+          console.log("That didn't work")
+        });
+        return;
+    }
 }
