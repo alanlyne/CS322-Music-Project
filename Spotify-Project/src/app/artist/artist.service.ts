@@ -11,7 +11,7 @@ import { Observable } from 'rxjs';
 })
 export class ArtistService{
 
-    requestUrl = 'localhost:8080/search';
+    requestUrl = 'http://localhost:8080/search';
     st = {
         "artists": {
           "href": "https://api.spotify.com/v1/search?query=Muse&type=artist&market=US&offset=0&limit=1",
@@ -93,6 +93,9 @@ export class ArtistService{
           JSON.stringify(this.data), 
           {headers: this.headers}
         ).subscribe(res =>{
+          console.log("That did work")
+          console.log(res)
+
           return res;
         },
         () => {
