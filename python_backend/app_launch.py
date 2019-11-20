@@ -8,8 +8,11 @@ from flask import Flask, request
 from spotipy import  oauth2
 import spotipy.util as util
 from flask.json import jsonify
+from flask_cors import CORS
+from flask_cors import cross_origin
 
 app = Flask(__name__)
+cors = CORS(app, resources={r"/*": {"origins": "*"}})
 
 # client_id = sys.argv[1] 
 # client_secret = sys.argv[2] 
@@ -69,7 +72,10 @@ class SpotifyApi(object):
 
 
 
-
+@app.route("/tester")
+@cross_origin()
+def helloWorld():
+  return "Hello, cross-origin-world!"
 
 @app.route('/login')
 def login():    

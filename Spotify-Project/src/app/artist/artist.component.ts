@@ -33,5 +33,11 @@ export class ArtistComponent implements OnInit {
       this.artistList = res;
     });
   }
+
+  test(): void {
+    this.artsitService.test().subscribe( res => {
+      console.log(res);
+    })
+  }
   
 }

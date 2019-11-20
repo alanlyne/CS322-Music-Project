@@ -11,7 +11,7 @@ import { Observable } from 'rxjs';
 })
 export class ArtistService{
 
-    requestUrl = 'localhost:8080/search';
+    requestUrl = 'http://localhost:8080/search';
     st = {
         "artists": {
           "href": "https://api.spotify.com/v1/search?query=Muse&type=artist&market=US&offset=0&limit=1",
@@ -76,6 +76,9 @@ export class ArtistService{
     }
 
     headers = new HttpHeaders({
+      "Access-Control-Allow-Origin": "localhost:8080/*",
+      "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, PATCH, OPTIONS",
+      "Access-Control-Allow-Headers": "X-Requested-With, content-type, Authorization",
       'Content-Type': 'application/json',
       'Accept': 'application/json',
       'Authorization': 'Bearer BQD_cXQ7c2fmPZk1lOnc9wOaUFY99Ze8WmNYFqp3bfM8YR0kUql1VY4m_sMpcc9KR1c-73Z7Glia3IHwzqJTkX_lo1MOcp4FgnerCHfCCiPl4UVwH6ioPcaZJhxaDoxaf7ouWYXcSTGf23N0zdRW8BfVsPTv8CeEXSQ'
@@ -89,7 +92,7 @@ export class ArtistService{
     SearchArtist(): Observable<IArtist[]> {
 
       this.http.post<IArtist[]>(
-          this.requestUrl, 
+          this.requestUrl,
           JSON.stringify(this.data), 
           {headers: this.headers}
         ).subscribe(res =>{
@@ -99,5 +102,12 @@ export class ArtistService{
           console.log("That didn't work")
         });
         return;
+    }
+
+    test(): Observable<string> {
+      this.http.get<string>("http://localhost:8080/tester").subscribe( x => {
+        return JSON.parse(x);
+      });
+      return;
     }
 }
