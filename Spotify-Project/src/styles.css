@@ -1,1 +1,70 @@
 /* You can add global styles to this file, and also import other style files */
+
+/* Entire Site */
+html {
+    overflow-x: hidden;
+    max-width: 100%;
+}
+
+body {
+    background-color: #191414;
+    color: #FFFFFF;
+    font-family: spotify-circular,spotify-circular-cyrillic,spotify-circular-arabic,
+        spotify-circular-hebrew,Helvetica Neue,Helvetica,Arial,Hiragino Kaku Gothic Pro,
+        Meiryo,MS Gothic,sans-serif;
+}
+
+/* Album Cover Image size */
+.artistImageSize {
+    width: 250px !important;
+    height: 250px !important;
+
+}
+
+/* DIV containing all Artist Images*/
+.artistImageWrap {
+    /* width: 100% !important;
+    overflow: hidden !important; */
+}
+
+.artistImage {
+    /*float: left; */
+    padding: 25px;
+    padding-bottom: 5px;
+}
+
+.artistImageArtistName {
+    text-align: center;
+    max-width: 250px;
+    padding-bottom: 5px;
+}
+
+ .viewMore {
+    /* background-color: #1DB954;
+    border-color: #1DB954;
+    color: white; */
+    /* padding: 10px;
+    width: 450px;
+    padding: 0px; */
+    background-color:#1DB954;
+	border-radius:42px;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-size:17px;
+	padding:12px 43px;
+    text-decoration:none;
+    font-weight: 600;
+    border: none;
+    
+} 
+
+.test {
+    height: 300px;
+}
+.test1 {
+    visibility: hidden;
+    width: 0px !important;
+    height: 0px !important;
+}
+
