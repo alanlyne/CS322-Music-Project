@@ -1,7 +1,3 @@
-
-<button (click) = "getArtists()">Click Me</button>
-
-
 <div class="form-group row">
     <!-- <label for="exampleSelect1" class="col-xs-2 col-form-label">My HTML code</label> -->
     <div class="col-xs-10">
@@ -9,16 +5,14 @@
     </div>
     <hr>
 <div *ngIf="htmlYouWantToAdd" [innerHTML]="htmlYouWantToAdd"></div>
-
-<button (click) = "getArtists()">Click Me</button>
 <!--Calls artists.component.ts which then calls service -->
 
 <!-- Wrapped div because can't have two ng's in one div, Checks if button was clicked -->
 <div class="table-responsive">
     <table classs="table">
         <tbody>
-            <tr *ngFor="let i of artistList; let x = index">
-                <td *ngFor="let j of artistList[x]">
+            <tr *ngFor="let i of artistList2; let x = index">
+                <td *ngFor="let j of artistList2[x]">
 
                     <div [innerHTML] = "j.name"></div>
                 </td>
@@ -42,16 +36,3 @@
         </div>
     </div>
 </div> -->
-
-<div class="form-group row">
-    <label for="exampleSelect1" class="col-xs-2 col-form-label">My HTML code</label>
-    <div class="col-xs-10">
-        <button type="button" class="btn btn-primary" (click)="search()">ADD</button>
-
-        <!--<div class="row">
-            <div class="col-3"></div>
-            <div  class="viewMoreDiv col-6" style=" text-align: center;">
-                <button (click) = "getArtists()" class="viewMore">WANT MORE?</button> -->
-    </div>
-    <div class="col-3"></div>
-</div>

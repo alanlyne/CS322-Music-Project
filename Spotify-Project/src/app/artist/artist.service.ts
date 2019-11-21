@@ -17,15 +17,6 @@ export class ArtistService{
     constructor(private http: HttpClient){
 
     }
-
-    // getArtists(): IArtist[] {
-    //   return this.st.artists.items;
-    //   // return this.http.get<Iartist[]>(this.requestUrl)
-    //   //   .pipe(
-    //   //     tap(data => console.log('All: ' + JSON.stringify(data)))
-    //   //   );
-    // }
-
     headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'Accept': 'application/json',
@@ -46,8 +37,4 @@ export class ArtistService{
           {headers: this.headers}
       ).pipe();
     }
-    /*let artists = [];
-    for(var i = index; i < index+5; i++){
-      artists.push(this.st.artists.items[i]);
-    } */
 }
