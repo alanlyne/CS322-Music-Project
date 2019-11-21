@@ -86,18 +86,11 @@ export class ArtistService{
       "genre":"Rock",
       "year": "1980"
     }
-    
     SearchArtist(): Observable<IArtist[]> {
-      this.http.post<Object>(
+      return this.http.post<IArtist[]>(
           this.requestUrl, 
           JSON.stringify(this.data), 
           {headers: this.headers}
-        ).subscribe(res =>{
-          return res["artists"]["items"];
-        },
-        () => {
-          console.log("That didn't work")
-        });
-        return;
+      ).pipe();
     }
 }

@@ -4,37 +4,39 @@ import { IArtist } from "./artist";
 
 @Component({
   selector: "pm-artist",
-  templateUrl: "artist.html",
-  styleUrls: ["artist.css"]
+  templateUrl: "artist.component.html",
+  styleUrls: ["artist.component.css"]
 })
 export class ArtistComponent implements OnInit {
   artistList: IArtist[] = [];
 
-  constructor(private artsitService: ArtistService) {}
+  constructor(private artistService: ArtistService) {}
   ngOnInit(): void {}
 
-  getArtists(): void {
-    console.log("Hello");
-    this.artistList = this.artsitService.getArtists();
-    console.log(this.artistList);
-  }
+  // getArtists(): void {
+  //   console.log("Hello");
+  //   this.artistList = this.artsitService.getArtists();
+  //   console.log(this.artistList);
+  // }
 
   htmlYouWantToAdd;
 
-  private addHTML() {
-    this.artistList = this.artsitService.getArtists();
-    this.artistList.forEach(element => {
-      this.htmlYouWantToAdd+=element.name + "</br>"
-    });
-  }
+  // private addHTML() {
+  //   this.artistList = this.artsitService.getArtists();
+  //   this.artistList.forEach(element => {
+  //     this.htmlYouWantToAdd+=element.name + "</br>"
+  //   });
+  // }
 
   search(): void {
-    console.log("HELLO")
-    this.artsitService.SearchArtist().subscribe(res => {
-      this.artistList = res;
-      this.artistList.forEach(element => {
-        this.htmlYouWantToAdd += element;        
-      });
+    this.artistService.SearchArtist().subscribe(res => {
+      this.artistList = res["artists"]["items"];
+      console.log(this.artistList);
+      this.artistList.forEach(artist =>{
+        console.log(artist.name);
+        this.htmlYouWantToAdd += artist.name + "<br>";
+      })
+      return this.htmlYouWantToAdd;
     });
   }
   
