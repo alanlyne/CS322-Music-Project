@@ -24,7 +24,7 @@ export class ArtistService{
     });
 
     data = {
-      "genre":"Rock",
+      "genre":"Catstep",
       "year": "1980"
     }
     SearchArtist(): Observable<IArtist[]> {

@@ -1,6 +1,6 @@
-<div class="form-group row">
+<div class="form-group">
     <!-- <label for="exampleSelect1" class="col-xs-2 col-form-label">My HTML code</label> -->
-    <div class="col-xs-10">
+    <div class="">
         <button type="button" class="btn btn-primary" (click)="search()">ADD</button>
     </div>
     <hr>
@@ -8,13 +8,16 @@
 <!--Calls artists.component.ts which then calls service -->
 
 <!-- Wrapped div because can't have two ng's in one div, Checks if button was clicked -->
-<div class="table-responsive">
+<div class="table-responsive col-11" style="margin: auto; overflow: hidden;">
     <table classs="table">
         <tbody>
-            <tr *ngFor="let i of artistList2; let x = index">
-                <td *ngFor="let j of artistList2[x]">
-
-                    <div [innerHTML] = "j.name"></div>
+            <tr *ngFor="let i of artistList2; let x = index" >
+                <td *ngFor="let j of artistList2[x]"   style="padding: 10px; padding-bottom: 20px; text-align: center;">
+                
+                    <a [href] = j.external_urls.spotify target="_blank">
+                        <img [src] = "j.images.length > 0 ? j.images[0].url : 'http://i.imgur.com/nszu54A.jpg' " [title]=j.name alt="" class="artistImageSize">
+                    </a>
+                    <div [innerHTML] = "j.name" class="artistImageArtistName"> </div>
                 </td>
             </tr>
         </tbody>
