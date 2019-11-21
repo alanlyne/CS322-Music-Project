@@ -88,6 +88,7 @@ def search():
         print(content)
         toolbox = SpotifyApi().get_spotify_toolbox(request)
         results = toolbox.search(q="genre: "+content.get('genre'),limit=10,offset=1,type="artist",market="IE")
+        return json.dumps(results)
         return jsonify(results)
 
     return("NO JSON OBJ IN POST")

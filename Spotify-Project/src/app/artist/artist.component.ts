@@ -29,8 +29,12 @@ export class ArtistComponent implements OnInit {
   }
 
   search(): void {
+    console.log("HELLO")
     this.artsitService.SearchArtist().subscribe(res => {
       this.artistList = res;
+      this.artistList.forEach(element => {
+        this.htmlYouWantToAdd += element;        
+      });
     });
   }
   

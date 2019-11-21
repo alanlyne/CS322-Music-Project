@@ -5,6 +5,7 @@ import { ArtistComponent } from './artist.component';
 import { IArtist } from './artist';
 import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { JsonPipe } from '@angular/common';
 
 @Injectable({
     providedIn: 'root'
@@ -85,18 +86,14 @@ export class ArtistService{
       "genre":"Rock",
       "year": "1980"
     }
-
+    
     SearchArtist(): Observable<IArtist[]> {
-
-      this.http.post<IArtist[]>(
+      this.http.post<Object>(
           this.requestUrl, 
           JSON.stringify(this.data), 
           {headers: this.headers}
         ).subscribe(res =>{
-          console.log("That did work")
-          console.log(res)
-
-          return res;
+          return res["artists"]["items"];
         },
         () => {
           console.log("That didn't work")
