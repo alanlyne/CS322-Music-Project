@@ -1,41 +1,91 @@
+<!--
+    Fuck around with the line breaks (enough/not enough/too many)
+    See what ye think about border vs no border on search box
+    No idea how to get input values (assuming using ngmodel) into script with this angular
+    Suss out how to do login page, where its gonna be and what not
+    More padding bewteen artist cover photo?
+    I made search again button clear current search yay or nah?
+-->
 <div class="form-group">
     <!-- <label for="exampleSelect1" class="col-xs-2 col-form-label">My HTML code</label> -->
-    <div class="">
-        <button type="button" class="btn btn-primary" (click)="search()">ADD</button>
-    </div>
     <hr>
-<div *ngIf="htmlYouWantToAdd" [innerHTML]="htmlYouWantToAdd"></div>
-<!--Calls artists.component.ts which then calls service -->
+    <div *ngIf="htmlYouWantToAdd" [innerHTML]="htmlYouWantToAdd"></div>
+    <!--Calls artists.component.ts which then calls service -->
 
-<!-- Wrapped div because can't have two ng's in one div, Checks if button was clicked -->
-<div class="table-responsive col-11" style="margin: auto; overflow: hidden;">
-    <table classs="table">
-        <tbody>
-            <tr *ngFor="let i of artistList2; let x = index" >
-                <td *ngFor="let j of artistList2[x]"   style="padding: 10px; padding-bottom: 20px; text-align: center;">
-                
-                    <a [href] = j.external_urls.spotify target="_blank">
-                        <img [src] = "j.images.length > 0 ? j.images[0].url : 'http://i.imgur.com/nszu54A.jpg' " [title]=j.name alt="" class="artistImageSize">
-                    </a>
-                    <div [innerHTML] = "j.name" class="artistImageArtistName"> </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-</div>
-<!-- <div *ngIf = "imageBoolean" class="artistImageWrap row">
-     Loop through every artist from JSON file
-    <div name="rows" *ngFor="let i of artistList; let x = index">
-        <div  class="artistImage col" >
-             Album Cover Art which is a link
-            <div *ngIf ="x < maxCount" class="row test" >
-                <div class="col" >
-                    <a [href] = i.external_urls.spotify target="_blank">
-                        <img [src] = "i.images.length > 0 ? i.images[0].url : 'http://i.imgur.com/nszu54A.jpg' " [title]=i.name alt="" class="artistImageSize">
-                    </a>
-                    <div [innerHTML] = "i.name" class="artistImageArtistName"></div>
-                </div>
-            </div>
-        </div>
+    <!-- Logo Div -->
+    <div class="logoDiv">
+        <img class="logoPic" src='https://i.imgur.com/inXRmvI.png'>
     </div>
-</div> -->
+    <br>
+    <!-- Search Box Div -->
+    <div *ngIf = "!searchDone" class="searchBoxDiv">
+        <br>
+        <!-- Genre Input Field, Bootstrap styled, Tried to use ngModel not sure if right for this version of angular-->
+        <div class="form-group">
+            <label for="genre">Enter Desired Genre:</label>
+            <input #genreInput type="text" id="genre" name="genre" placeholder="Genre" [(ngModel)]="genre" class="searchInputs form-control">
+            <p>Genre: {{genreInput.value}}</p>
+        </div>
+        <br>
+        <!-- Year Input Field, Bootstrap styled, Tried to use ngModel not sure if right for this version of angular-->
+        <div class="form-group">
+            <label for="year">Enter Desied Year:</label>
+            <input #yearInput type="text" id="year" name="year" placeholder="Year"  [(ngModel)]="year" class="searchInputs form-control">
+            <p>Year: {{yearInput.value}}</p>
+        </div>
+        <br>
+        <!-- Silder bar taken from w3Schools, Bootsrap styling adds extra white space either side but looks better with it 
+            unsure if a fix available or just remove bootstrap, same again with ng-model-->
+        <div class="slidecontainer form-group">
+            <label for="myRange">Obscurity:</label>
+            <input #obscurityInput type="range" min="1" max="100" value="0" class="slider form-control" [(ngModel)]="obscurity" id="myRange">
+            <p>Obscurity: {{obscurityInput.value}}</p>
+        </div>
+        <br>
+        <div class="searchBoxButtonDiv">
+            <button class="btn btn-primary greenButton viewMore" (click)="viewMore()">Search</button>
+        </div>
+        <br>
+    </div>
+    <!-- Search again button, re opens search box, only visible when search box is hidden -->
+    <div *ngIf = "searchDone" style="margin: auto !important; text-align: center;"> 
+        <button class="btn btn-primary greenButton viewMore" (click)="searchPopUp()">New Search?</button>
+    </div>
+    <br>
+    <br>
+    <!-- Results Div, nothing changed here other than styling to center -->
+    <div class="table-responsive tableArtistDiv">
+        <table classs="table" style="margin: auto !important; width: 50% !important;">
+            <tbody>
+                <tr *ngFor="let i of artistList2; let x = index" >
+                    <td class="artistImageTitle" *ngFor="let j of artistList2[x]">
+                        <a [href] = j.external_urls.spotify target="_blank">
+                            <img [src] = "j.images.length > 0 ? j.images[0].url : 'http://i.imgur.com/nszu54A.jpg' " [title]=j.name alt="" class="artistImageSize">
+                        </a>
+                        <div [innerHTML] = "j.name" class="artistImageArtistName"></div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <!-- Button to show up more results -->
+    <div *ngIf = "searchDone" class="viewMoreDiv">
+        <button type="button" class="btn btn-primary viewMore" (click)="viewMore()">Placeholder but forever</button>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+<script>
+var slider = document.getElementById("myRange");
+var output = document.getElementById("demo");
+output.innerHTML = slider.value;
+slider.oninput = function() {
+  output.innerHTML = this.value;
+}
+</script>

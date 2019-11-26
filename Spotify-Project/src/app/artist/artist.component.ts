@@ -17,7 +17,8 @@ export class ArtistComponent implements OnInit {
     //this.artistList2 = []
   }
   
-  search(): void {
+  viewMore(): void {
+    this.searchDone = true;
     this.artistService.SearchArtist().subscribe(res => {
       //Array of artist objects 
       this.artistList = res["artists"]["items"];
@@ -31,14 +32,13 @@ increaseMaxCount(): void {
   this.maxCount += 5;
 }
 
+searchPopUp(): void {
+  this.artistList2 = []
+  this.searchDone = false;
+  this.maxCount = 0;
+}
+
 maxCount: number = 5;
-imageBoolean: boolean = false;
-imageTest: string = "";
-artistLink: string = "";
-artistName: string = "";
+searchDone: boolean = false;
 htmlYouWantToAdd: string = "";
-count: number = 1;
-col: number =0;
-
-
 }
