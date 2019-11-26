@@ -1,7 +1,7 @@
 <!--
     Fuck around with the line breaks (enough/not enough/too many)
-    See what ye think about border vs no border on search box
-    No idea how to get input values (assuming using ngmodel) into script with this angular
+    See what ye think about border vs no border on search box or anything that might be cool
+    No idea how to get input values (assuming using ngmodel) into script files with this angular
     Suss out how to do login page, where its gonna be and what not
     More padding bewteen artist cover photo?
     I made search again button clear current search yay or nah?
@@ -24,22 +24,23 @@
         <div class="form-group">
             <label for="genre">Enter Desired Genre:</label>
             <input #genreInput type="text" id="genre" name="genre" placeholder="Genre" [(ngModel)]="genre" class="searchInputs form-control">
-            <p>Genre: {{genreInput.value}}</p>
+            <p>Genre Entered: {{genreInput.value}}    (Just for testing remove later)</p>
         </div>
         <br>
         <!-- Year Input Field, Bootstrap styled, Tried to use ngModel not sure if right for this version of angular-->
         <div class="form-group">
             <label for="year">Enter Desied Year:</label>
             <input #yearInput type="text" id="year" name="year" placeholder="Year"  [(ngModel)]="year" class="searchInputs form-control">
-            <p>Year: {{yearInput.value}}</p>
+            <p>Year Entered: {{yearInput.value}}   (Just for testing remove later)</p>
         </div>
         <br>
         <!-- Silder bar taken from w3Schools, Bootsrap styling adds extra white space either side but looks better with it 
             unsure if a fix available or just remove bootstrap, same again with ng-model-->
         <div class="slidecontainer form-group">
             <label for="myRange">Obscurity:</label>
+            <!-- After adding an ng-model beginning value is 51, no idea why -->
             <input #obscurityInput type="range" min="1" max="100" value="0" class="slider form-control" [(ngModel)]="obscurity" id="myRange">
-            <p>Obscurity: {{obscurityInput.value}}</p>
+            <p style="padding-top: 10px;">Obscurity Selected: {{obscurityInput.value}}    (Just for testing remove later)</p>
         </div>
         <br>
         <div class="searchBoxButtonDiv">
@@ -55,7 +56,8 @@
     <br>
     <!-- Results Div, nothing changed here other than styling to center -->
     <div class="table-responsive tableArtistDiv">
-        <table classs="table" style="margin: auto !important; width: 50% !important;">
+        <!-- Centering of table is overridden if not styled inline, any solutions welcome xoxo -->
+        <table classs="table artistTable" style="margin: auto !important; width: 50% !important;">
             <tbody>
                 <tr *ngFor="let i of artistList2; let x = index" >
                     <td class="artistImageTitle" *ngFor="let j of artistList2[x]">
@@ -73,19 +75,3 @@
         <button type="button" class="btn btn-primary viewMore" (click)="viewMore()">Placeholder but forever</button>
     </div>
 </div>
-
-
-
-
-
-
-
-
-<script>
-var slider = document.getElementById("myRange");
-var output = document.getElementById("demo");
-output.innerHTML = slider.value;
-slider.oninput = function() {
-  output.innerHTML = this.value;
-}
-</script>

@@ -54,6 +54,7 @@
 }
 
 .slider {
+    padding: 0px !important;
     margin: auto;
     width: 60%;
     -webkit-appearance: none;
@@ -91,8 +92,9 @@
 
 /*Search box div Unsure about border, but no border looks weird to me too*/
 .searchBoxDiv {
-    border: white;
+    border: #4CAF50;
     border-style: solid;
+    border-radius: 10px;
     margin: auto !important;
     width: 40% !important;
     text-align: center;
