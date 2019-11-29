@@ -1,8 +1,7 @@
 /* Album Cover Image size */
-.artistImageSize {
-    width: 250px !important;
-    height: 250px !important;
-
+.img-fluid{
+    max-width: 100% !important; 
+    max-height: 100% !important;
 }
 
 /* Artist Names under cover photo */
@@ -41,11 +40,25 @@
     overflow: hidden;
 }
 
+.artistList {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-gap: 10px;
+    align-self: stretch;
+    justify-self: stretch;
+    align-content: space-evenly;
+    justify-content: space-evenly;
+    
+}
 /*Artist name under photo*/
 .artistImageTitle {
+    display: grid;
+    grid-template-rows: 250px auto;
     padding: 10px;
     padding-bottom: 20px;
     text-align: center;
+    ;
+
 }
 
 /*All stylying for obscure slider*/
