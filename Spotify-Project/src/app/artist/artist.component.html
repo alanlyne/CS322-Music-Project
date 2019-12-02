@@ -1,13 +1,4 @@
-<!--
-    Fuck around with the line breaks (enough/not enough/too many)
-    See what ye think about border vs no border on search box or anything that might be cool
-    No idea how to get input values (assuming using ngmodel) into script files with this angular
-    Suss out how to do login page, where its gonna be and what not
-    More padding bewteen artist cover photo?
-    I made search again button clear current search yay or nah?
--->
 <div class="form-group">
-    <!-- <label for="exampleSelect1" class="col-xs-2 col-form-label">My HTML code</label> -->
     <hr>
     <div *ngIf="htmlYouWantToAdd" [innerHTML]="htmlYouWantToAdd"></div>
     <!--Calls artists.component.ts which then calls service -->
@@ -16,22 +7,19 @@
     <div class="logoDiv">
         <img class="logoPic" src='https://i.imgur.com/inXRmvI.png'>
     </div>
-    <br>
     <!-- Search Box Div -->
     <div *ngIf = "!searchDone" class="searchBoxDiv">
         <br>
-        <!-- Genre Input Field, Bootstrap styled, Tried to use ngModel not sure if right for this version of angular-->
+        <!-- Genre Input Field-->
         <div class="form-group">
             <label for="genre">Enter Desired Genre:</label>
             <input #genreInput type="text" id="genre" name="genre" placeholder="Genre" [(ngModel)]="genre" class="searchInputs form-control">
-            <p>Genre Entered: {{genreInput.value}}    (Just for testing remove later)</p>
         </div>
         <br>
-        <!-- Year Input Field, Bootstrap styled, Tried to use ngModel not sure if right for this version of angular-->
+        <!-- Year Input Fieldr-->
         <div class="form-group">
             <label for="year">Enter Desied Year:</label>
             <input #yearInput type="text" id="year" name="year" placeholder="Year"  [(ngModel)]="year" class="searchInputs form-control">
-            <p>Year Entered: {{yearInput.value}}   (Just for testing remove later)</p>
         </div>
         <br>
         <!-- Silder bar taken from w3Schools, Bootsrap styling adds extra white space either side but looks better with it 
@@ -40,7 +28,7 @@
             <label for="myRange">Obscurity:</label>
             <!-- After adding an ng-model beginning value is 51, no idea why -->
             <input #obscurityInput type="range" min="1" max="100" value="0" class="slider form-control" [(ngModel)]="obscurity" id="myRange">
-            <p style="padding-top: 10px;">Obscurity Selected: {{obscurityInput.value}}    (Just for testing remove later)</p>
+            <!-- <p style="padding-top: 10px;">Obscurity Selected: {{obscurityInput.value}}    (Just for testing remove later)</p> -->
         </div>
         <br>
         <div class="searchBoxButtonDiv">
@@ -54,25 +42,12 @@
     </div>
     <br>
     <br>
-    <!-- Results Div, nothing changed here other than styling to center -->
+    <!-- Results Div-->
     <div class="table-responsive tableArtistDiv">
-        <!-- Centering of table is overridden if not styled inline, any solutions welcome xoxo -->
-        <!-- <table classs="table artistTable" style="margin: auto !important; width: 50% !important;">
-            <tbody>
-                <tr *ngFor="let i of artistList2; let x = index" >
-                    <td class="artistImageTitle" *ngFor="let j of artistList2[x]">
-                        <a [href] = j.external_urls.spotify target="_blank">
-                            <img [src] = "j.images.length > 0 ? j.images[0].url : 'http://i.imgur.com/nszu54A.jpg' " [title]=j.name alt="" class="" style = "width: 250px !important; height: 250px !important;">
-                        </a>
-                        <div [innerHTML] = "j.name" class="artistImageArtistName"></div>
-                    </td>
-                </tr>
-            </tbody>
-        </table> -->
         <div class="artistList" *ngFor="let i of artistList2; let x = index" >
             <div class="artistImageTitle" *ngFor="let j of artistList2[x]">
                 <a [href] = j.external_urls.spotify target="_blank">
-                    <img [src] = "j.images.length > 0 ? j.images[0].url : 'http://i.imgur.com/nszu54A.jpg' " [title]=j.name alt="" class="" style = "width: 250px !important; height: 250px !important;">
+                    <img [src] = "j.images.length > 0 ? j.images[0].url : 'http://i.imgur.com/nszu54A.jpg' " [title]=j.name alt="" class="artistImage">
                 </a>
                 <div [innerHTML] = "j.name" class="artistImageArtistName"></div>
             </div>
