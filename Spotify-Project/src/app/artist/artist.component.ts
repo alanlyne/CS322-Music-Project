@@ -16,6 +16,18 @@ export class ArtistComponent implements OnInit {
     this.artistList = [];
     //this.artistList2 = []
   }
+
+  search(): void {
+    this.artistList2 = []
+    this.searchDone = true;
+    this.artistService.SearchArtist().subscribe(res => {
+      //Array of artist objects 
+      this.artistList = res["artists"]["items"];
+      this.artistList2.push(this.artistList);
+      console.log(this.artistList2);
+      return this.htmlYouWantToAdd;
+    });
+}
   
   viewMore(): void {
     this.searchDone = true;
@@ -33,7 +45,7 @@ increaseMaxCount(): void {
 }
 
 searchPopUp(): void {
-  this.artistList2 = []
+  
   this.searchDone = false;
   this.maxCount = 0;
 }
