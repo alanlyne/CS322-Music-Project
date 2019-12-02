@@ -4,34 +4,53 @@ import { IArtist } from "./artist";
 
 @Component({
   selector: "pm-artist",
-  templateUrl: "artist.html",
-  styleUrls: ["artist.css"]
+  templateUrl: "artist.component.html",
+  styleUrls: ["artist.component.css"]
 })
 export class ArtistComponent implements OnInit {
   artistList: IArtist[] = [];
-
-  constructor(private artsitService: ArtistService) {}
-  ngOnInit(): void {}
-
-  getArtists(): void {
-    console.log("Hello");
-    this.artistList = this.artsitService.getArtists();
-    console.log(this.artistList);
-  }
-
-  htmlYouWantToAdd;
-
-  private addHTML() {
-    this.artistList = this.artsitService.getArtists();
-    this.artistList.forEach(element => {
-      this.htmlYouWantToAdd+=element.name + "</br>"
-    });
+  artistList2: IArtist[][] = [];
+  
+  constructor(private artistService: ArtistService) {}
+  ngOnInit(): void {
+    this.artistList = [];
+    //this.artistList2 = []
   }
 
   search(): void {
-    this.artsitService.SearchArtist().subscribe(res => {
-      this.artistList = res;
+    this.artistList2 = []
+    this.searchDone = true;
+    this.artistService.SearchArtist().subscribe(res => {
+      //Array of artist objects 
+      this.artistList = res["artists"]["items"];
+      this.artistList2.push(this.artistList);
+      console.log(this.artistList2);
+      return this.htmlYouWantToAdd;
     });
-  }
+}
   
+  viewMore(): void {
+    this.searchDone = true;
+    this.artistService.SearchArtist().subscribe(res => {
+      //Array of artist objects 
+      this.artistList = res["artists"]["items"];
+      this.artistList2.push(this.artistList);
+      console.log(this.artistList2);
+      return this.htmlYouWantToAdd;
+    });
+}
+
+increaseMaxCount(): void {
+  this.maxCount += 5;
+}
+
+searchPopUp(): void {
+  
+  this.searchDone = false;
+  this.maxCount = 0;
+}
+
+maxCount: number = 5;
+searchDone: boolean = false;
+htmlYouWantToAdd: string = "";
 }
