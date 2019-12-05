@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 })
 export class ArtistService{
 
-    requestUrlForArtists = 'http://localhost:8080/searchArtist';
+    requestUrlForArtists = 'http://localhost:8080/search';
 
     constructor(private http: HttpClient){
 
@@ -21,13 +21,18 @@ export class ArtistService{
 
     private data = {
       "genre":"",
-      "year": "1980"
+      "offset":1,
+      "nudge": 1
     }
-    setSearchParams(genre: string): void {
+    setSearchParams(genre: string, year: string, obscurity: number): void {
+      if(year != "") {
+        this.data["year"] = year;
+      }
+      obscurity == null ? this.data.offset = 50 : this.data.offset = obscurity;
       this.data.genre = genre;
+      this.data.nudge += 5;
     }
     SearchArtist(): Observable<IArtist[]> {
-
       return this.http.post<IArtist[]>(
           this.requestUrlForArtists,
           JSON.stringify(this.data),
