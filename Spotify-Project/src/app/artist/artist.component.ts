@@ -23,6 +23,9 @@ export class ArtistComponent implements OnInit {
     this.artistService.SearchArtist().subscribe(res => {
       //Array of artist objects 
       this.artistList = res["artists"]["items"];
+        for(var i = 0; i<this.artistList.length; i++) {
+          this.artistList[i].topSongs = "https://open.spotify.com/embed/artist/" + this.artistList[i].id;
+        }
       this.artistList2.push(this.artistList);
       console.log(this.artistList2);
       return this.htmlYouWantToAdd;
@@ -34,6 +37,9 @@ export class ArtistComponent implements OnInit {
     this.artistService.SearchArtist().subscribe(res => {
       //Array of artist objects 
       this.artistList = res["artists"]["items"];
+      for(var i = 0; i<this.artistList.length; i++) {
+        this.artistList[i].topSongs = "https://open.spotify.com/embed/artist/" + this.artistList[i].id;
+      }
       this.artistList2.push(this.artistList);
       console.log(this.artistList2);
       return this.htmlYouWantToAdd;
@@ -45,11 +51,24 @@ increaseMaxCount(): void {
 }
 
 searchPopUp(): void {
-  
   this.searchDone = false;
   this.maxCount = 0;
 }
 
+viewArtistCover(id): void {
+  var img = document.getElementById("img"+id);
+  var ifr = document.getElementById("ifr"+id);
+
+  if (img.style.display === "none") {
+    img.style.display = "block";
+    ifr.style.display = "none";
+  } else {
+    ifr.style.display = "block";
+    img.style.display = "none";
+  }
+}
+
+viewSongs: boolean = false;
 maxCount: number = 5;
 searchDone: boolean = false;
 htmlYouWantToAdd: string = "";
