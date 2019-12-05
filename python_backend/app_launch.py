@@ -92,8 +92,10 @@ def build_query(content):
 def build_offset(offset, nudge, results):
     print("++++build_OFFSET++++")
     maxi = results["artists"]["total"]
-    offset = (int(maxi)*(int(offset)/100))+int(nudge)
-    return round(offset)
+    offset = (int(maxi)*(int(offset)/100)) 
+    offset = int(round(offset))
+    offset += int(nudge)
+    return offset
 
 @app.route('/search', methods=['GET', 'POST'])
 def search():
