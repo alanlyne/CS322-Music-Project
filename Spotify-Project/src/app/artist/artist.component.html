@@ -1,5 +1,9 @@
 <div class="form-group">
     <hr>
+    <div style="text-align: center; border: white; border-style: solid;">
+       Want more customers? 
+       Get your brand here for ONLY $9.99 per month 
+    </div>
     <div *ngIf="htmlYouWantToAdd" [innerHTML]="htmlYouWantToAdd"></div>
     <!--Calls artists.component.ts which then calls service -->
 
@@ -46,10 +50,9 @@
     <div class="table-responsive tableArtistDiv">
         <div class="artistList" *ngFor="let i of artistList2; let x = index" >
             <div class="artistImageTitle" *ngFor="let j of artistList2[x]">
-                <a [href] = j.external_urls.spotify target="_blank">
-                    <img [src] = "j.images.length > 0 ? j.images[0].url : 'http://i.imgur.com/nszu54A.jpg' " [title]=j.name alt="" class="artistImage">
-                </a>
-                <div [innerHTML] = "j.name" class="artistImageArtistName"></div>
+                <iframe id=ifr{{j.id}} class="artistImage" [src]= "j.topSongs | safe" frameborder="0" allowtransparency="true" allow="encrypted-media" style="display: none;"></iframe>
+                <img id=img{{j.id}} [src] = "j.images.length > 0 ? j.images[0].url : 'http://i.imgur.com/nszu54A.jpg' " [title]=j.name alt="" class="artistImage">
+                <div (click)="viewArtistCover(j.id)" [innerHTML] = "j.name" class="artistImageArtistName"></div>
             </div>
         </div>
     </div>
