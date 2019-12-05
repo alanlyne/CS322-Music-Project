@@ -7,12 +7,14 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { AuthComponent } from './auth/auth.component'
 import { ArtistComponent } from './artist/artist.component';
+import { SafePipe } from './safe.pipe';
 
 @NgModule({
   declarations: [
     AppComponent,
     AuthComponent,
-    ArtistComponent
+    ArtistComponent,
+    SafePipe
   ],
   imports: [
     BrowserModule,
