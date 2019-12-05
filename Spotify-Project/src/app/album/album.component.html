@@ -41,7 +41,7 @@
         </div>
         <br>
         <div class="searchBoxButtonDiv">
-            <button class="btn btn-primary greenButton viewMore" (click)="viewMore()">Search</button>
+            <button class="btn btn-primary greenButton viewMore" (click)="searchAlbums()">Search</button>
         </div>
         <br>
     </div>
@@ -69,6 +69,6 @@
     </div>
     <!-- Button to show up more results -->
     <div [hidden] = "searchDone" class="viewMoreDiv">
-        <button type="button" class="btn btn-primary viewMore" (click)="viewMore()">Placeholder but forever</button>
+        <button type="button" class="btn btn-primary viewMore" (click)="searchAlbums()">Placeholder but forever</button>
     </div>
 </div>
