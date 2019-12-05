@@ -7,21 +7,24 @@ import { IArtist } from "./artist";
   templateUrl: "artist.component.html",
   styleUrls: ["artist.component.css"]
 })
+
 export class ArtistComponent implements OnInit {
+  genre: string;
+  year: string;
   artistList: IArtist[] = [];
   artistList2: IArtist[][] = [];
-  
+
+
   constructor(private artistService: ArtistService) {}
+
   ngOnInit(): void {
-    this.artistList = [];
-    //this.artistList2 = []
   }
 
   search(): void {
     this.artistList2 = []
     this.searchDone = true;
     this.artistService.SearchArtist().subscribe(res => {
-      //Array of artist objects 
+      //Array of artist objects
       this.artistList = res["artists"]["items"];
         for(var i = 0; i<this.artistList.length; i++) {
           this.artistList[i].topSongs = "https://open.spotify.com/embed/artist/" + this.artistList[i].id;
@@ -31,24 +34,24 @@ export class ArtistComponent implements OnInit {
       return this.htmlYouWantToAdd;
     });
 }
-  
+
   viewMore(): void {
-    this.searchDone = true;
+    this.searchDone = false;
+    this.artistService.setSearchParams(this.genre);
     this.artistService.SearchArtist().subscribe(res => {
-      //Array of artist objects 
+      //Array of artist objects
       this.artistList = res["artists"]["items"];
       for(var i = 0; i<this.artistList.length; i++) {
         this.artistList[i].topSongs = "https://open.spotify.com/embed/artist/" + this.artistList[i].id;
       }
       this.artistList2.push(this.artistList);
       console.log(this.artistList2);
-      return this.htmlYouWantToAdd;
     });
-}
+  }
 
-increaseMaxCount(): void {
-  this.maxCount += 5;
-}
+  increaseMaxCount(): void {
+    this.maxCount += 5;
+  }
 
 searchPopUp(): void {
   this.searchDone = false;
