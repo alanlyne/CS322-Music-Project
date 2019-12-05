@@ -16,7 +16,7 @@ import { AlbumComponent } from './album/album.component';
     AppComponent,
     AuthComponent,
     ArtistComponent,
-    SafePipe
+    SafePipe,
     AlbumComponent
   ],
   imports: [
