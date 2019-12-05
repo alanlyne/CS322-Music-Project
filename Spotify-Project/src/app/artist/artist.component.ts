@@ -11,6 +11,7 @@ import { IArtist } from "./artist";
 export class ArtistComponent implements OnInit {
   genre: string;
   year: string;
+  obscurity: number;
   artistList: IArtist[] = [];
   artistList2: IArtist[][] = [];
 
@@ -23,6 +24,7 @@ export class ArtistComponent implements OnInit {
   search(): void {
     this.artistList2 = []
     this.searchDone = true;
+    this.artistService.setSearchParams(this.genre, this.year, this.obscurity);
     this.artistService.SearchArtist().subscribe(res => {
       //Array of artist objects
       this.artistList = res["artists"]["items"];
@@ -36,8 +38,8 @@ export class ArtistComponent implements OnInit {
 }
 
   viewMore(): void {
-    this.searchDone = false;
-    this.artistService.setSearchParams(this.genre);
+    this.searchDone = true;
+    this.artistService.setSearchParams(this.genre, this.year, this.obscurity);
     this.artistService.SearchArtist().subscribe(res => {
       //Array of artist objects
       this.artistList = res["artists"]["items"];
