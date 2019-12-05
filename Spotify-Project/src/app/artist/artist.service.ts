@@ -1,41 +1,41 @@
 import { Injectable } from '@angular/core';
-import { catchError, tap, map } from 'rxjs/operators';
-
-import { ArtistComponent } from './artist.component';
 import { IArtist } from './artist';
-import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { JsonPipe } from '@angular/common';
 
 @Injectable({
     providedIn: 'root'
 })
 export class ArtistService{
 
-    requestUrl = 'http://localhost:8080/search';
-    
+    requestUrlForArtists = 'http://localhost:8080/search';
+
     constructor(private http: HttpClient){
 
     }
-    headers = new HttpHeaders({
+    private headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'Accept': 'application/json',
       'Authorization': 'Bearer BQD_cXQ7c2fmPZk1lOnc9wOaUFY99Ze8WmNYFqp3bfM8YR0kUql1VY4m_sMpcc9KR1c-73Z7Glia3IHwzqJTkX_lo1MOcp4FgnerCHfCCiPl4UVwH6ioPcaZJhxaDoxaf7ouWYXcSTGf23N0zdRW8BfVsPTv8CeEXSQ'
     });
 
-    data = {
-      "genre":"Rock",
-      "year": "1980",
-      "offset":"50",
-      "nudge":"5"
+    private data = {
+      "genre":"",
+      "offset":1,
+      "nudge": 1
+    }
+    setSearchParams(genre: string, year: string, obscurity: number): void {
+      if(year != "") {
+        this.data["year"] = year;
+      }
+      obscurity == null ? this.data.offset = 50 : this.data.offset = obscurity;
+      this.data.genre = genre;
+      this.data.nudge += 5;
     }
     SearchArtist(): Observable<IArtist[]> {
-
-
       return this.http.post<IArtist[]>(
-          this.requestUrl,
+          this.requestUrlForArtists,
           JSON.stringify(this.data),
-
           {headers: this.headers}
       ).pipe();
     }

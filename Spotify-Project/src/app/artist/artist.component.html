@@ -1,5 +1,9 @@
 <div class="form-group">
     <hr>
+    <div style="text-align: center; border: white; border-style: solid;">
+       Want more customers?
+       Get your brand here for ONLY $9.99 per month
+    </div>
     <div *ngIf="htmlYouWantToAdd" [innerHTML]="htmlYouWantToAdd"></div>
     <!--Calls artists.component.ts which then calls service -->
 
@@ -13,22 +17,19 @@
         <!-- Genre Input Field-->
         <div class="form-group">
             <label for="genre">Enter Desired Genre:</label>
-            <input #genreInput type="text" id="genre" name="genre" placeholder="Genre" [(ngModel)]="genre" class="searchInputs form-control">
+            <input type="text" id="genre" name="genre" placeholder="Genre" [(ngModel)]="genre" class="searchInputs form-control">
         </div>
         <br>
-        <!-- Year Input Fieldr-->
+        <!-- Year Input Field-->
         <div class="form-group">
             <label for="year">Enter Desied Year:</label>
-            <input #yearInput type="text" id="year" name="year" placeholder="Year"  [(ngModel)]="year" class="searchInputs form-control">
+            <input type="text" id="year" name="year" placeholder="Year"  [(ngModel)]="year" class="searchInputs form-control">
         </div>
         <br>
-        <!-- Silder bar taken from w3Schools, Bootsrap styling adds extra white space either side but looks better with it 
-            unsure if a fix available or just remove bootstrap, same again with ng-model-->
+        <!-- Obscurity Slider Bar -->
         <div class="slidecontainer form-group">
             <label for="myRange">Obscurity:</label>
-            <!-- After adding an ng-model beginning value is 51, no idea why -->
-            <input #obscurityInput type="range" min="1" max="100" value="0" class="slider form-control" [(ngModel)]="obscurity" id="myRange">
-            <!-- <p style="padding-top: 10px;">Obscurity Selected: {{obscurityInput.value}}    (Just for testing remove later)</p> -->
+            <input  type="range" min="1" max="99" value="1" class="slider form-control" [(ngModel)]="obscurity" id="myRange">
         </div>
         <br>
         <div class="searchBoxButtonDiv">
@@ -37,7 +38,7 @@
         <br>
     </div>
     <!-- Search again button, re opens search box, only visible when search box is hidden -->
-    <div *ngIf = "searchDone" style="margin: auto !important; text-align: center;"> 
+    <div *ngIf = "searchDone" style="margin: auto !important; text-align: center;">
         <button class="btn btn-primary greenButton viewMore" (click)="searchPopUp()">New Search?</button>
     </div>
     <br>
@@ -46,10 +47,9 @@
     <div class="table-responsive tableArtistDiv">
         <div class="artistList" *ngFor="let i of artistList2; let x = index" >
             <div class="artistImageTitle" *ngFor="let j of artistList2[x]">
-                <a [href] = j.external_urls.spotify target="_blank">
-                    <img [src] = "j.images.length > 0 ? j.images[0].url : 'http://i.imgur.com/nszu54A.jpg' " [title]=j.name alt="" class="artistImage">
-                </a>
-                <div [innerHTML] = "j.name" class="artistImageArtistName"></div>
+                <iframe id=ifr{{j.id}} class="artistImage" [src]= "j.topSongs | safe" frameborder="0" allowtransparency="true" allow="encrypted-media" style="display: none;"></iframe>
+                <img id=img{{j.id}} [src] = "j.images.length > 0 ? j.images[0].url : 'http://i.imgur.com/nszu54A.jpg' " [title]=j.name alt="" class="artistImage">
+                <div (click)="viewArtistCover(j.id)" [innerHTML] = "j.name" class="artistImageArtistName"></div>
             </div>
         </div>
     </div>
