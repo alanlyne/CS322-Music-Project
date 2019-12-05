@@ -7,4 +7,6 @@ export interface IArtist{
     images: IImage[];
     name:string;
     popularity: number;
+    topSongs: string;
+    id: string;
 }
