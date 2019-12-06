@@ -24,13 +24,13 @@ export class ArtistService{
       "offset":1,
       "nudge": 1
     }
-    setSearchParams(genre: string, year: string, obscurity: number): void {
+    setSearchParams(genre: string, year: string, obscurity: number, newSearch: boolean): void {
       if(year != "") {
         this.data["year"] = year;
       }
       obscurity == null ? this.data.offset = 50 : this.data.offset = obscurity;
+      newSearch == true ? this.data.nudge = 1 : this.data.nudge +=5;
       this.data.genre = genre;
-      this.data.nudge += 5;
     }
     SearchArtist(): Observable<IArtist[]> {
       return this.http.post<IArtist[]>(

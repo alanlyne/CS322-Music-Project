@@ -24,7 +24,7 @@ export class ArtistComponent implements OnInit {
   search(): void {
     this.artistList2 = []
     this.searchDone = true;
-    this.artistService.setSearchParams(this.genre, this.year, this.obscurity);
+    this.artistService.setSearchParams(this.genre, this.year, this.obscurity, true);
     this.artistService.SearchArtist().subscribe(res => {
       //Array of artist objects
       this.artistList = res["artists"]["items"];
@@ -39,7 +39,7 @@ export class ArtistComponent implements OnInit {
 
   viewMore(): void {
     this.searchDone = true;
-    this.artistService.setSearchParams(this.genre, this.year, this.obscurity);
+    this.artistService.setSearchParams(this.genre, this.year, this.obscurity, false);
     this.artistService.SearchArtist().subscribe(res => {
       //Array of artist objects
       this.artistList = res["artists"]["items"];
