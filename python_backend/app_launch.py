@@ -71,12 +71,24 @@ class SpotifyApi(object):
         print("-------------------------------------")
         return spotify_toolbox
 
+@app.route('/getgen')
+def getgen():
+    f = open("my-file.txt", "r")
+    red = f.read()
+    li = list(red.split(",")) 
+    li.sort()
+    f.close()
+    return jsonify(li)
 
-@app.route('/login')
-def login():
-    toolbox = SpotifyApi().get_spotify_toolbox(request)
-    return "hi"
-
+def addgen(genre):
+    f = open("my-file.txt", "r")
+    red = f.read()
+    li = list(red.split(",")) 
+    f.close()
+    if genre not in li: 
+        a = open("my-file.txt", "a")
+        a.write(","+str(genre))
+        a.close()
 
 def build_query(content):
     temp = str(content)
@@ -90,11 +102,17 @@ def build_query(content):
 
 
 def build_offset(offset, nudge, results):
-    print("++++build_OFFSET++++")
-    maxi = results["artists"]["total"]
-    offset = (int(maxi)*(int(offset)/100)) 
+    maxi = int(results["artists"]["total"])
+    offset = (maxi*(int(offset)/100)) 
     offset = int(round(offset))
     offset += int(nudge)
+    if int(nudge)>5:
+        return offset
+    if maxi<offset+5:
+        offset = maxi-5
+    if (maxi <= 5):
+        offset = 0
+
     return offset
 
 @app.route('/search', methods=['GET', 'POST'])
@@ -104,6 +122,10 @@ def search():
         content = request.get_json()
         offset = content.pop("offset")
         nudge = content.pop("nudge")
+        try:
+            genre = content.get("genre")
+        except:
+            pass
         toolbox = SpotifyApi().get_spotify_toolbox(request)
         query = build_query(content)
         results = toolbox.search(
@@ -111,6 +133,10 @@ def search():
 
 
         offset = build_offset(offset, nudge, results)
+
+        if int(results["artists"]["total"]):
+            addgen(genre)
+
         results = toolbox.search(
             q=query, limit=5, offset=offset, type="artist", market="IE")
         return jsonify(results)

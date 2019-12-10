@@ -4,7 +4,7 @@ import { AuthService } from './auth.service';
 @Component({
     selector: 'pm-auth',
     templateUrl: 'auth.component.html',
-    styleUrls: ['auth.component.css']
+    styleUrls: ['auth.component.css', '../artist/artist.component.css']
 })
 
 export class AuthComponent implements OnInit{
@@ -18,6 +18,7 @@ export class AuthComponent implements OnInit{
     }
 
     testAuth() : void {
+        
         console.log("clicked");
         console.log(this.authService.authorize());
     }

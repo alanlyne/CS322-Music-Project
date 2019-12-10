@@ -1,4 +1,4 @@
-/* Album Cover Image size */
+    /* Album Cover Image size */
 .artistImage{
     width: 250px !important;
     height: 250px !important;
@@ -6,14 +6,14 @@
 
 /* Artist Names under cover photo */
 .artistImageArtistName {
-    text-align: center;
+    /* text-align: center; */
     
     padding-bottom: 5px;
     /* if name is too big cut off */
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-}
+} 
 
 /*Show more results button*/
 .viewMore {
@@ -54,7 +54,7 @@
 }
 /*Artist name under photo*/
 .artistImageTitle {
-    display: grid;
+    /* display: grid; */
     grid-template-rows: 250px auto;
     padding: 10px;
     padding-bottom: 20px;
@@ -139,3 +139,4 @@
     width: 50%;
     height: 50%;
 }
+

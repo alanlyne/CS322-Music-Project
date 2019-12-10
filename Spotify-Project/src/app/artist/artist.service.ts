@@ -8,6 +8,7 @@ import { Observable } from 'rxjs';
 })
 export class ArtistService{
 
+    baseUrl = 'http://localhost:8080/';
     requestUrlForArtists = 'http://localhost:8080/search';
 
     constructor(private http: HttpClient){
@@ -24,6 +25,13 @@ export class ArtistService{
       "offset":1,
       "nudge": 1
     }
+
+
+    getGenres() : Observable<string[]> {
+      return this.http.get<string[]>(this.baseUrl + "getgen").pipe();
+    }
+
+
     setSearchParams(genre: string, year: string, obscurity: number, newSearch: boolean): void {
       if(year != "") {
         this.data["year"] = year;
