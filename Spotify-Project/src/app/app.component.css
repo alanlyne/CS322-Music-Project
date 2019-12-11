@@ -1,0 +1,217 @@
+.content1{
+    position: absolute;
+    left: 100px;
+    top: -150px;
+    opacity: 0.5;
+    -webkit-animation: move 15s linear infinite;
+    z-index: -1; }
+
+@-webkit-keyframes move{
+    
+    0%{
+        transform:translate(0px);
+    }
+    
+    100%{
+        transform:translate(0px, 100vh);
+    }
+}
+
+@keyframes move{
+    
+    0%{
+        transform:translate(0px, 0hv);
+        opacity: 0.1;
+    }
+    
+    100%{
+        transform:translate(0px, 100vh);
+        opacity: 0;
+    }
+}
+
+@-webkit-keyframes rotateY {
+  to { -webkit-transform: rotateY(360deg); }
+}
+@keyframes rotateY {
+  to { transform: rotateY(360deg); }
+}
+
+@-webkit-keyframes rotateYRev {
+  to { -webkit-transform: rotateY(-360deg); }
+}
+@keyframes rotateYRev {
+  to { transform: rotateY(-360deg); }
+}
+
+.qm1 {
+    width: 30%;
+    height: auto;
+    -webkit-animation: rotateY 10s infinite linear;
+    animation: rotateY 10s infinite linear;
+}
+
+
+
+.content2{
+    position: absolute;
+    left: 5%;
+    top: -150px;
+    opacity: 0.75;
+    -webkit-animation: move2 6s linear infinite; 
+    animation: move 6s linear infinite;
+    z-index: -1;
+}
+
+
+.qm2 {
+    width: 40%;
+    height: auto;
+    -webkit-animation: rotateY 8s infinite linear;
+    animation: rotateY 8s infinite linear;
+}
+
+
+.content3{
+    position: absolute;
+    left: 50%;
+    top: -150px;
+    opacity: 0.15;
+    -webkit-animation: move 8s linear infinite; 
+    animation: move 8s linear infinite;
+    z-index: -1;
+}
+
+
+.qm3 {
+    width: 40%;
+    height: auto;
+    -webkit-animation: rotateY 10s infinite linear;
+    animation: rotateY 10s infinite linear;
+}
+
+.content4{
+    position: absolute;
+    left: 60%;
+    top: -150px;
+    opacity: 0.25;
+    -webkit-animation: move 7s linear infinite; 
+    animation: move 7s linear infinite;
+    z-index: -1;
+}
+
+
+.qm4 {
+    width: 35%;
+    height: auto;
+    -webkit-animation: rotateY 20s infinite linear;
+    animation: rotateY 20s infinite linear;
+}
+
+.content5{
+    position: absolute;
+    left: 70%;
+    top: -150px;
+    opacity: 0.55;
+    -webkit-animation: move 10s linear infinite; 
+    animation: move 10s linear infinite;
+    z-index: -1;
+}
+
+
+.qm5 {
+    width: 35%;
+    height: auto;
+    -webkit-animation: rotateY 15s infinite linear;
+    animation: rotateY 15s infinite linear;
+}
+
+.content6{
+    position: absolute;
+    left: 80%;
+    top: -150px;
+    opacity: 0.3;
+    -webkit-animation: move 9s linear infinite; 
+    animation: move 9s linear infinite;
+    z-index: -1;
+}
+
+
+.qm6 {
+    width: 25%;
+    height: auto;
+    -webkit-animation: rotateY 11s infinite linear;
+    animation: rotateY 11s infinite linear;
+}
+
+.content7{
+    position: absolute;
+    left: 90%;
+    top: -150px;
+    opacity: 0.6;
+    -webkit-animation: move 7s linear infinite; 
+    animation: move 7s linear infinite;
+    z-index: -1;
+}
+
+
+.qm7 {
+    width: 30%;
+    height: auto;
+    -webkit-animation: rotateY 13s infinite linear;
+    animation: rotateY 13s infinite linear;
+}
+
+.content8{
+    position: absolute;
+    left: 20%;
+    top: -150px;
+    opacity: 0.1;
+    -webkit-animation: move 11s linear infinite; 
+    animation: move 11s linear infinite;
+    z-index: -1;
+}
+
+
+.qm8 {
+    width: 30%;
+    height: auto;
+    -webkit-animation: rotateY 14s infinite linear;
+    animation: rotateY 14s infinite linear;
+}
+
+.content9{
+    position: absolute;
+    left: 95%;
+    top: -150px;
+    opacity: 0.7;
+    -webkit-animation: move 8s linear infinite; 
+    animation: move 8s linear infinite;
+    z-index: -1;
+}
+
+
+.qm9 {
+    width: 80%;
+    height: auto;
+    -webkit-animation: rotateY 10s infinite linear;
+    animation: rotateY 10s infinite linear;
+}
+
+.content10{
+    position: absolute;
+    left: 40%;
+    top: -150px;
+    opacity: 0.65;
+    -webkit-animation: move 5s linear infinite; 
+    animation: move 5s linear infinite;
+    z-index: -1;
+}
+
+
+.qm10 {
+    width: 20%;
+    height: auto;
+    -webkit-animation: rotateY 10s infinite linear;
+    animation: rotateY 10s infinite linear;
+}

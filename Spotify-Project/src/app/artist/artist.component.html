@@ -1,4 +1,4 @@
-<div class="form-group">
+<div class="form-group" style="background: rgba(0,0,0,0);">
     <hr>
     <!-- <div style="text-align: center; border: white; border-style: solid;">
        Want more customers?
@@ -44,7 +44,7 @@
         <br>
         <!-- Year Input Field-->
         <div class="form-group">
-            <label for="year">Enter Desied Year:</label>
+            <label for="year">Enter Desired Year:</label>
             <div>
                 <input type="text" id="year" name="year"  [(ngModel)]="year" class="searchInputs" style="height:40px;">
             </div>
@@ -82,6 +82,6 @@
     </div>
     <!-- Button to show up more results -->
     <div *ngIf = "(searchDone || newSearch) && !noResults " class="viewMoreDiv">
-        <button type="button" class="btn btn-primary viewMore" (click)="viewMore()">Placeholder but forever</button>
+        <button type="button" class="btn btn-primary viewMore" (click)="viewMore()">Want More?</button>
     </div>
 </div>
