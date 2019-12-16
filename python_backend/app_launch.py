@@ -4,24 +4,34 @@ import requests
 import sys
 import spotipy
 import os
-from flask import Flask, request
+from flask import Flask, request, session, redirect
 from spotipy import oauth2
 import spotipy.util as util
 from flask.json import jsonify
 from flask_cors import CORS
+import secrets
+from spotipy.client import Spotify 
+
 
 app = Flask(__name__)
+app.config["SECRET_KEY"]=secrets.token_urlsafe(16)
 #cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
 CORS(app)
 # client_id = sys.argv[1]
 # client_secret = sys.argv[2]
 redirect_uri = 'http://localhost:8080/tester'
-
+frontend = "http://localhost:4200"
 client_id = ''
 client_secret = ''
 os.environ['SPOTIPY_CLIENT_ID'] = client_id
 os.environ['SPOTIPY_CLIENT_SECRET'] = client_secret
 os.environ['SPOTIPY_REDIRECT_URI'] = redirect_uri
+
+class SpotInhear(Spotify):
+
+    def user_follow_artists(self, ids=[]):
+        return self._put('me/following?type=artist&ids='+','.join(ids))
+
 
 
 class SpotifyApi(object):
@@ -35,10 +45,11 @@ class SpotifyApi(object):
     def generate_token(self, user_code):
         url = "https://accounts.spotify.com/api/token"
         data = {
-            'grant_type': 'client_credentials',
-            # 'grant_type': 'authorization_code',
+            #'grant_type': 'client_credentials',
+            'grant_type': 'authorization_code',
             'code': user_code,
-            'redirect_uri': "http://localhost:8080/tester"
+            'redirect_uri': "http://localhost:8080/login",
+            #'scope': 'user-follow-modify'
         }
 
         response = requests.post(url, data=data, auth=(
@@ -61,9 +72,9 @@ class SpotifyApi(object):
         # print("----------------token-----------------")
             # print(token)
 
-        token = self.generate_token(code)
+        #token = self.generate_token(code)
 
-        token = token['access_token']
+        #token = token['access_token']
         #spotify_toolbox = spotipy.Spotify(client_credentials_manager=self._id, auth=token)
 
         spotify_toolbox = spotipy.Spotify(
@@ -114,6 +125,34 @@ def build_offset(offset, nudge, results):
         offset = 0
 
     return offset
+
+
+@app.route('/login')
+def login():
+    code = request.args.get('code')
+    token = SpotifyApi().generate_token(code)
+    print(token)
+    session["user"] = token
+    return redirect(frontend)
+    return "done"
+
+@app.route('/follow')
+def gettoken():
+    token = session["user"]
+    print(token)
+    toekntest = token["access_token"]
+    follow_tool = SpotInhear(auth=toekntest)
+    #print(follow_tool.current_user())
+    print("+++++++++++++++++++++++++++++++++++++++++++++")
+    test = follow_tool.search(q="genre: rock", limit=1, offset=0, type="artist", market="IE")
+    print(test)
+    # follow_tool = spotipy.Spotify(auth=token)
+    artist_test_id = "1dfeR4HaWDbWqFHLkxsg1d" # queen id
+    follow_tool.user_follow_artists(ids=[artist_test_id])
+    return "followed"
+    #return token['access_token']
+
+
 
 @app.route('/search', methods=['GET', 'POST'])
 def search():
