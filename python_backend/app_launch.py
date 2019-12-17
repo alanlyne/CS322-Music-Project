@@ -235,8 +235,13 @@ def search():
 @app.route('/getUser', methods=['GET', 'POST'])
 def getUser():
     token = user[0]
-    sp = SpotInhear(token)
-    return sp.me()
+    toekntest = token["access_token"]
+
+    sp = SpotInhear(toekntest)
+    
+    temp = sp.current_user()
+    print(temp)
+    return temp
 
 
 if __name__ == '__main__':
