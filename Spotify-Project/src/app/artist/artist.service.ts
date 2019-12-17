@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { IArtist } from './artist';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { IUser } from '../user/user';
 
 @Injectable({
     providedIn: 'root'
@@ -9,7 +10,10 @@ import { Observable } from 'rxjs';
 export class ArtistService{
 
     baseUrl = 'http://localhost:8080/';
-    requestUrlForArtists = 'http://localhost:8080/search';
+    requestArtistsEndpoint = this.baseUrl + 'search';
+    followArtistEndpoint = this.baseUrl + 'follow';
+    unfollowArtistEndpoint = this.baseUrl + 'unfollow';
+    getUserEndpoint = this.baseUrl + 'getUser';
 
     constructor(private http: HttpClient){
 
@@ -26,6 +30,9 @@ export class ArtistService{
       "nudge": 1
     }
 
+    private artistId = {
+      "id": ""
+    }
 
     getGenres() : Observable<string[]> {
       return this.http.get<string[]>(this.baseUrl + "getgen").pipe();
@@ -40,11 +47,40 @@ export class ArtistService{
       newSearch == true ? this.data.nudge = 1 : this.data.nudge +=5;
       this.data.genre = genre;
     }
+
     SearchArtist(): Observable<IArtist[]> {
       return this.http.post<IArtist[]>(
-          this.requestUrlForArtists,
+          this.requestArtistsEndpoint,
           JSON.stringify(this.data),
           {headers: this.headers}
       ).pipe();
     }
+
+    followArtist(id: string): Observable<string> {
+      console.log(id)
+      this.artistId.id = id;
+      return this.http.get<string>(
+        this.followArtistEndpoint,
+        //JSON.stringify(this.artistId),
+        {headers: this.artistId}
+      ).pipe()
+    }
+
+    unfollowArtist(id: string): Observable<string> {
+      console.log(id)
+      this.artistId.id = id;
+      return this.http.get<string>(
+        this.unfollowArtistEndpoint,
+        //JSON.stringify(this.artistId),
+        {headers: this.artistId}
+      ).pipe()
+    }
+
+    getUserInfo(): Observable<IUser> {
+      return this.http.get<IUser>(
+        this.getUserEndpoint,
+        {headers: this.headers}
+        ).pipe();
+    } 
+    
 }

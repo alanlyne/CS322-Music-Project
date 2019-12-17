@@ -20,6 +20,7 @@ export class ArtistComponent implements OnInit {
   noResults: boolean;
   oneSearchDone: boolean = false;
   genreList1: string[];
+  followingVisible: boolean = true;
 
 
   constructor(private artistService: ArtistService) {}
@@ -29,6 +30,20 @@ export class ArtistComponent implements OnInit {
       console.log(data);
       this.genreList1 = data;
     });
+  }
+
+  followArtist(i: number, j: number): void { 
+    let artist = this.artistList2[i][j];
+    artist.following = !artist.following;
+    if(artist.following){
+      this.artistService.followArtist(artist.id).subscribe(data => {
+        console.log("Following " + artist.name);
+      });
+    } else {
+      this.artistService.unfollowArtist(artist.id).subscribe(data => {
+        console.log("Unfollowing " + artist.name);
+      })
+    }
   }
 
   closeSearch(): void {
@@ -60,6 +75,7 @@ export class ArtistComponent implements OnInit {
       this.artistList.length == 0 ? this.noResults = true : this.noResults = false;
         for(var i = 0; i<this.artistList.length; i++) {
           this.artistList[i].topSongs = "https://open.spotify.com/embed/artist/" + this.artistList[i].id;
+          this.artistList[i].followButtonVisible = true;
         }
       this.artistList2.push(this.artistList);
       return this.htmlYouWantToAdd;
@@ -74,6 +90,7 @@ export class ArtistComponent implements OnInit {
       this.artistList = res["artists"]["items"];
       for(var i = 0; i<this.artistList.length; i++) {
         this.artistList[i].topSongs = "https://open.spotify.com/embed/artist/" + this.artistList[i].id;
+        this.artistList[i].followButtonVisible = true;
       }
       this.artistList2.push(this.artistList);
       console.log(this.artistList2);
@@ -90,7 +107,10 @@ searchPopUp(): void {
   this.maxCount = 0;
 }
 
-viewArtistCover(id): void {
+viewArtistCover(id: string, i: number, j: number): void {
+  let artist = this.artistList2[i][j];
+  artist.following = !artist.following;
+  artist.followButtonVisible = !artist.followButtonVisible;
   var img = document.getElementById("img"+id);
   var ifr = document.getElementById("ifr"+id);
 
@@ -103,9 +123,17 @@ viewArtistCover(id): void {
   }
 }
 
+getUserInfo(): void {
+  this.artistService.getUserInfo().subscribe( data => {
+    console.log(data);
+  });
+}
+
 newSearch: boolean = false;
 viewSongs: boolean = false;
 maxCount: number = 5;
 searchDone: boolean = false;
 htmlYouWantToAdd: string = "";
 }
+
+

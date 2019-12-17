@@ -12,12 +12,12 @@ export class AuthService {
 
     }
 
-    client_id = "825fb8e2f83e479e8823d725c9a2dc22";
+    client_id = "e24f768d9a5346509dd81d3f6811bd66";
     redirect_uri: string = "http://localhost:8080/login";
     url: string = "https://accounts.spotify.com/authorize?client_id=" + this.client_id + "&response_type=code&redirect_uri=" + this.redirect_uri + "&scope=user-follow-modify%20user-read-private%20user-read-email&state=34fFs29kd09";
 
     authorize(): void {
 
-      window.location.href=this.url;
+      window.open(this.url);
     }
 }

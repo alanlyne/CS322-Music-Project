@@ -11,18 +11,23 @@ from flask.json import jsonify
 from flask_cors import CORS
 import secrets
 from spotipy.client import Spotify 
+global user
 
-
+user= []
 app = Flask(__name__)
-app.config["SECRET_KEY"]=secrets.token_urlsafe(16)
+print(secrets.token_urlsafe(16))
+#app.config['SERVER_NAME'] = 'example.com' 
+
+app.config["SECRET_KEY"]="FMx6MtDOQUOCh7C8uQhtVg"
+#app.config["SECRET_KEY"]=secrets.token_urlsafe(16)
 #cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
 CORS(app)
 # client_id = sys.argv[1]
 # client_secret = sys.argv[2]
 redirect_uri = 'http://localhost:8080/tester'
 frontend = "http://localhost:4200"
-client_id = ''
-client_secret = ''
+client_id = 'e24f768d9a5346509dd81d3f6811bd66'
+client_secret = 'bb5e0f916dcc4ccb953833c2cdc7f2b3'
 os.environ['SPOTIPY_CLIENT_ID'] = client_id
 os.environ['SPOTIPY_CLIENT_SECRET'] = client_secret
 os.environ['SPOTIPY_REDIRECT_URI'] = redirect_uri
@@ -32,6 +37,8 @@ class SpotInhear(Spotify):
     def user_follow_artists(self, ids=[]):
         return self._put('me/following?type=artist&ids='+','.join(ids))
 
+    def user_unfollow_artists(self, ids=[]):
+        return self._delete('me/following?type=artist&ids='+','.join(ids))
 
 
 class SpotifyApi(object):
@@ -132,25 +139,68 @@ def login():
     code = request.args.get('code')
     token = SpotifyApi().generate_token(code)
     print(token)
-    session["user"] = token
-    return redirect(frontend)
+    #session["user"] = token
+    user.append(token)
+    #print(session["user"])
+    
+    return redirect(frontend+"/close")
     return "done"
 
-@app.route('/follow')
+@app.route('/follow', methods=['GET','POST'])
 def gettoken():
-    token = session["user"]
+
+    #content = request.get_json()
+    try:
+        art_id = request.headers.get('id')
+        print(art_id)
+       # art_id = content.pop("id")
+    except:
+        print("doomed to fail with get")
+    for key, value in session.items() :
+        print (key, value)
+    print("+++++++++++++++++++++++++++++++++++++++++++++")
+
+    #token = session["user"]
+    token = user[0]
     print(token)
     toekntest = token["access_token"]
     follow_tool = SpotInhear(auth=toekntest)
+    
     #print(follow_tool.current_user())
     print("+++++++++++++++++++++++++++++++++++++++++++++")
-    test = follow_tool.search(q="genre: rock", limit=1, offset=0, type="artist", market="IE")
-    print(test)
-    # follow_tool = spotipy.Spotify(auth=token)
-    artist_test_id = "1dfeR4HaWDbWqFHLkxsg1d" # queen id
-    follow_tool.user_follow_artists(ids=[artist_test_id])
+
+    #art_id = "1dfeR4HaWDbWqFHLkxsg1d"
+
+    follow_tool.user_follow_artists(ids=[art_id])
     return "followed"
-    #return token['access_token']
+
+@app.route('/unfollow', methods=['GET','POST'])
+def unfollow():
+
+    #content = request.get_json()
+    try:
+        art_id = request.headers.get('id')
+        print(art_id)
+       # art_id = content.pop("id")
+    except:
+        print("doomed to fail with get")
+    for key, value in session.items() :
+        print (key, value)
+    print("+++++++++++++++++++++++++++++++++++++++++++++")
+
+    #token = session["user"]
+    token = user[0]
+    print(token)
+    toekntest = token["access_token"]
+    follow_tool = SpotInhear(auth=toekntest)
+    
+    #print(follow_tool.current_user())
+    print("+++++++++++++++++++++++++++++++++++++++++++++")
+
+    #art_id = "1dfeR4HaWDbWqFHLkxsg1d"
+
+    follow_tool.user_unfollow_artists(ids=[art_id])
+    return "unfollow"
 
 
 
@@ -182,6 +232,12 @@ def search():
 
     return("NO JSON OBJ IN POST")
 
+@app.route('/getUser', methods=['GET', 'POST'])
+def getUser():
+    token = user[0]
+    sp = SpotInhear(token)
+    return sp.me()
+
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=8080)
+    app.run(debug=True, host='0.0.0.0', port=8080)
