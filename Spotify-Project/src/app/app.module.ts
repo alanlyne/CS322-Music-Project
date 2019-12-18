@@ -9,10 +9,8 @@ import { AppComponent } from './app.component';
 import { AuthComponent } from './auth/auth.component'
 import { ArtistComponent } from './artist/artist.component';
 import { SafePipe } from './safe.pipe';
-import { AlbumComponent } from './album/album.component';
 import { CloseComponent } from './close.component';
 import { RouterModule } from '@angular/router';
-
 
 @NgModule({
   declarations: [
@@ -20,7 +18,6 @@ import { RouterModule } from '@angular/router';
     AuthComponent,
     ArtistComponent,
     SafePipe,
-    AlbumComponent,
     CloseComponent
   ],
   imports: [

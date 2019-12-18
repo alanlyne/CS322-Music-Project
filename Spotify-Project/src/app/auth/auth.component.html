@@ -1,12 +1,17 @@
 <html>
     <body style="background: rgba(0,0,0,0);">
-        <div style="text-align: right; padding-top: 1%; padding-right: 1%;"  >
-        <p>Hey there user </p>
-
+        <div *ngIf ="userInfo != null" style="text-align: right; padding-top: 1%; padding-right: 1%;"  >
+            <a style = "position: relative;" (click) = "toggleLougoutPopUp()">Welcome {{userInfo.display_name.split(" ")[0]}}
+                <div style = "position: absolute; right: 0px; top: 25px;" [hidden] = "!clicked">
+                    <button (click) = "logOut()" class = "btn btn-primary greenButton viewMore">Logout</button>
+                </div> 
+            </a>
+            
         </div>
-        <div style="text-align: right; padding-top: 1%; padding-right: 1%;" >
-            <button class = "btn btn-primary greenButton viewMore" (click) = "testAuth()">Log in</button>
+        <div *ngIf = "userInfo == null" style="text-align: right; padding-top: 1%; padding-right: 1%;" >
+            <button class = "btn btn-primary greenButton viewMore" (click) = "Authorize()">Log in</button>
         </div>
     </body>
 
+    <pm-artist [loggedIn] = "userInfo != null"></pm-artist>
 </html>

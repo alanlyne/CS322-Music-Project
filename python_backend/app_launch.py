@@ -9,13 +9,13 @@ from spotipy import oauth2
 import spotipy.util as util
 from flask.json import jsonify
 from flask_cors import CORS
-import secrets
+# secrets
 from spotipy.client import Spotify 
 global user
 
-user= []
+user = []
 app = Flask(__name__)
-print(secrets.token_urlsafe(16))
+#print(secrets.token_urlsafe(16))
 #app.config['SERVER_NAME'] = 'example.com' 
 
 app.config["SECRET_KEY"]="FMx6MtDOQUOCh7C8uQhtVg"
@@ -26,8 +26,8 @@ CORS(app)
 # client_secret = sys.argv[2]
 redirect_uri = 'http://localhost:8080/tester'
 frontend = "http://localhost:4200"
-client_id = 'e24f768d9a5346509dd81d3f6811bd66'
-client_secret = 'bb5e0f916dcc4ccb953833c2cdc7f2b3'
+client_id = ''
+client_secret = ''
 os.environ['SPOTIPY_CLIENT_ID'] = client_id
 os.environ['SPOTIPY_CLIENT_SECRET'] = client_secret
 os.environ['SPOTIPY_REDIRECT_URI'] = redirect_uri
@@ -133,6 +133,12 @@ def build_offset(offset, nudge, results):
 
     return offset
 
+@app.route('/logout')
+def logout():
+    if len(user)>0:
+        user.pop()
+    
+    return jsonify("logged out")
 
 @app.route('/login')
 def login():
@@ -140,7 +146,10 @@ def login():
     token = SpotifyApi().generate_token(code)
     print(token)
     #session["user"] = token
-    user.append(token)
+    if len(user)==0:
+        user.append(token)
+    else:
+        user[0] = token
     #print(session["user"])
     
     return redirect(frontend+"/close")
@@ -172,7 +181,7 @@ def gettoken():
     #art_id = "1dfeR4HaWDbWqFHLkxsg1d"
 
     follow_tool.user_follow_artists(ids=[art_id])
-    return "followed"
+    return jsonify("followed")
 
 @app.route('/unfollow', methods=['GET','POST'])
 def unfollow():
@@ -200,7 +209,7 @@ def unfollow():
     #art_id = "1dfeR4HaWDbWqFHLkxsg1d"
 
     follow_tool.user_unfollow_artists(ids=[art_id])
-    return "unfollow"
+    return jsonify("unfollow")
 
 
 
@@ -241,7 +250,7 @@ def getUser():
     
     temp = sp.current_user()
     print(temp)
-    return temp
+    return jsonify(temp)
 
 
 if __name__ == '__main__':

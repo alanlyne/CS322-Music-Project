@@ -1,4 +1,4 @@
-import { IImage } from '../artist/image';
+import { IImage } from '../../artist/image';
 
 export interface IUser{
     country: string;

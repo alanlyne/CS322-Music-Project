@@ -81,11 +81,9 @@
                 <iframe id=ifr{{j.id}} class="artistImage" [src]= "j.topSongs | safe" frameborder="0" allowtransparency="true" allow="encrypted-media" style="display: none; "></iframe>
 
                 <div style="position: relative;">
-                    <i *ngIf="!j.following && j.followButtonVisible" (click) = "followArtist(x, y)" class="fa fa-heart-o" style="z-index: 1; position: absolute; font-size: 25px; padding: 5px;  text-shadow: 2px 2px 0 #000;"></i>
-                    <i *ngIf="j.following && j.followButtonVisible" (click) = "followArtist(x, y)" class="fa fa-heart" style="z-index: 1; position: absolute; font-size: 25px; padding: 5px; color:#1DB954;  text-shadow: 1px 1px 0 white;"></i>
-                  
+                    <i *ngIf="!j.following && j.followButtonVisible && loggedIn" (click) = "followArtist(x, y)" class="fa fa-heart-o" style="z-index: 1; position: absolute; font-size: 25px; padding: 5px;  text-shadow: 2px 2px 0 #000;"></i>
+                    <i *ngIf="j.following && j.followButtonVisible && loggedIn" (click) = "followArtist(x, y)" class="fa fa-heart" style="z-index: 1; position: absolute; font-size: 25px; padding: 5px; color:#1DB954;  text-shadow: 1px 1px 0 white;"></i>
                     
-
                     <img id=img{{j.id}} [src] = "j.images.length > 0 ? j.images[0].url : 'http://i.imgur.com/nszu54A.jpg' " [title]=j.name alt="" class="artistImage" style="padding-bottom: 5px;">
                 </div>
 
@@ -106,5 +104,3 @@
         <button type="button" class="btn btn-primary viewMore" (click)="viewMore()">Want More?</button>
     </div>
 </div>
-
-<button (click) = "getUserInfo()">click me</button>

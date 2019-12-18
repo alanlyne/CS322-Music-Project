@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { IArtist } from './artist';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { IUser } from '../user/user';
+import { IUser } from '../auth/user/user';
 
 @Injectable({
     providedIn: 'root'
@@ -13,7 +13,7 @@ export class ArtistService{
     requestArtistsEndpoint = this.baseUrl + 'search';
     followArtistEndpoint = this.baseUrl + 'follow';
     unfollowArtistEndpoint = this.baseUrl + 'unfollow';
-    getUserEndpoint = this.baseUrl + 'getUser';
+    
 
     constructor(private http: HttpClient){
 
@@ -76,11 +76,6 @@ export class ArtistService{
       ).pipe()
     }
 
-    getUserInfo(): Observable<IUser> {
-      return this.http.get<IUser>(
-        this.getUserEndpoint,
-        {headers: this.headers}
-        ).pipe();
-    } 
+    
     
 }

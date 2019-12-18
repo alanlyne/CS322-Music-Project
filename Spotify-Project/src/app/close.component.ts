@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from './auth/auth.service';
+import { IUser } from './auth/user/user';
 
 @Component({
     selector: 'pm-close',
@@ -8,8 +10,11 @@ import { Component, OnInit } from '@angular/core';
 
 export class CloseComponent implements OnInit{
 
+    constructor(private authService: AuthService) {
+
+    }
+
     ngOnInit(): void {
         window.close();
-    }
-    
+    }    
 }
