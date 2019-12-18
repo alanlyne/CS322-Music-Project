@@ -1,3 +1,9 @@
+<!-- <head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> 
+     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> 
+</head> -->
+
 <div class="form-group" style="background: rgba(0,0,0,0);">
     <hr>
     <!-- <div style="text-align: center; border: white; border-style: solid;">
@@ -70,10 +76,23 @@
     <!-- Results Div-->
     <div class="table-responsive tableArtistDiv" >
         <div class="artistList" *ngFor="let i of artistList2; let x = index" >
-            <div class="artistImageTitle" *ngFor="let j of artistList2[x]">
-                <iframe id=ifr{{j.id}} class="artistImage" [src]= "j.topSongs | safe" frameborder="0" allowtransparency="true" allow="encrypted-media" style="display: none;"></iframe>
-                <img id=img{{j.id}} [src] = "j.images.length > 0 ? j.images[0].url : 'http://i.imgur.com/nszu54A.jpg' " [title]=j.name alt="" class="artistImage" >
-                <div (click)="viewArtistCover(j.id)" [innerHTML] = "j.name" class="artistImageArtistName" style="cursor: pointer;"></div>
+            <div class="artistImageTitle" *ngFor="let j of artistList2[x]; let y = index ">
+                
+                <iframe id=ifr{{j.id}} class="artistImage" [src]= "j.topSongs | safe" frameborder="0" allowtransparency="true" allow="encrypted-media" style="display: none; "></iframe>
+
+                <div style="position: relative;">
+                    <i *ngIf="!j.following && j.followButtonVisible && loggedIn" (click) = "followArtist(x, y)" class="fa fa-heart-o" style="z-index: 1; position: absolute; font-size: 25px; padding: 5px;  text-shadow: 2px 2px 0 #000;"></i>
+                    <i *ngIf="j.following && j.followButtonVisible && loggedIn" (click) = "followArtist(x, y)" class="fa fa-heart" style="z-index: 1; position: absolute; font-size: 25px; padding: 5px; color:#1DB954;  text-shadow: 1px 1px 0 white;"></i>
+                    
+                    <img id=img{{j.id}} [src] = "j.images.length > 0 ? j.images[0].url : 'http://i.imgur.com/nszu54A.jpg' " [title]=j.name alt="" class="artistImage" style="padding-bottom: 5px;">
+                </div>
+
+
+                <!-- <div (click)="viewArtistCover(j.id)" [innerHTML] = "j.name" class="artistImageArtistName" style="cursor: pointer;"></div> -->
+                <div>
+                    <button class="artistImageArtistName"  [innerHTML] = "j.name" (click)="viewArtistCover(j.id, x, y)"></button>
+                    
+                </div>
             </div>
         </div>
     </div>

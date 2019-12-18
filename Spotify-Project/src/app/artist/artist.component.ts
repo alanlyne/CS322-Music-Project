@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, Input } from "@angular/core";
 import { ArtistService } from "./artist.service";
 import { IArtist } from "./artist";
 
@@ -7,8 +7,6 @@ import { IArtist } from "./artist";
   templateUrl: "artist.component.html",
   styleUrls: ["artist.component.css"]
 })
-
-
 
 export class ArtistComponent implements OnInit {
   genre: string;
@@ -20,6 +18,10 @@ export class ArtistComponent implements OnInit {
   noResults: boolean;
   oneSearchDone: boolean = false;
   genreList1: string[];
+  followingVisible: boolean = true;
+
+  @Input()
+  loggedIn: boolean = false;
 
 
   constructor(private artistService: ArtistService) {}
@@ -29,6 +31,20 @@ export class ArtistComponent implements OnInit {
       console.log(data);
       this.genreList1 = data;
     });
+  }
+
+  followArtist(i: number, j: number): void { 
+    let artist = this.artistList2[i][j];
+    artist.following = !artist.following;
+    if(artist.following){
+      this.artistService.followArtist(artist.id).subscribe(data => {
+        console.log("Following " + artist.name);
+      });
+    } else {
+      this.artistService.unfollowArtist(artist.id).subscribe(data => {
+        console.log("Unfollowing " + artist.name);
+      })
+    }
   }
 
   closeSearch(): void {
@@ -60,11 +76,12 @@ export class ArtistComponent implements OnInit {
       this.artistList.length == 0 ? this.noResults = true : this.noResults = false;
         for(var i = 0; i<this.artistList.length; i++) {
           this.artistList[i].topSongs = "https://open.spotify.com/embed/artist/" + this.artistList[i].id;
+          this.artistList[i].followButtonVisible = true;
         }
       this.artistList2.push(this.artistList);
       return this.htmlYouWantToAdd;
     })
-}
+  }
 
   viewMore(): void {
     this.searchDone = true;
@@ -74,6 +91,7 @@ export class ArtistComponent implements OnInit {
       this.artistList = res["artists"]["items"];
       for(var i = 0; i<this.artistList.length; i++) {
         this.artistList[i].topSongs = "https://open.spotify.com/embed/artist/" + this.artistList[i].id;
+        this.artistList[i].followButtonVisible = true;
       }
       this.artistList2.push(this.artistList);
       console.log(this.artistList2);
@@ -84,28 +102,35 @@ export class ArtistComponent implements OnInit {
     this.maxCount += 5;
   }
 
-searchPopUp(): void {
-  this.searchDone = false;
-  this.newSearch = true;
-  this.maxCount = 0;
-}
-
-viewArtistCover(id): void {
-  var img = document.getElementById("img"+id);
-  var ifr = document.getElementById("ifr"+id);
-
-  if (img.style.display === "none") {
-    img.style.display = "unset";
-    ifr.style.display = "none";
-  } else {
-    ifr.style.display = "unset";
-    img.style.display = "none";
+  searchPopUp(): void {
+    this.searchDone = false;
+    this.newSearch = true;
+    this.maxCount = 0;
   }
+
+  viewArtistCover(id: string, i: number, j: number): void {
+    let artist = this.artistList2[i][j];
+    artist.following = !artist.following;
+    artist.followButtonVisible = !artist.followButtonVisible;
+    var img = document.getElementById("img"+id);
+    var ifr = document.getElementById("ifr"+id);
+
+    if (img.style.display === "none") {
+      img.style.display = "unset";
+      ifr.style.display = "none";
+    } else {
+      ifr.style.display = "unset";
+      img.style.display = "none";
+    }
+  }
+
+
+
+  newSearch: boolean = false;
+  viewSongs: boolean = false;
+  maxCount: number = 5;
+  searchDone: boolean = false;
+  htmlYouWantToAdd: string = "";
 }
 
-newSearch: boolean = false;
-viewSongs: boolean = false;
-maxCount: number = 5;
-searchDone: boolean = false;
-htmlYouWantToAdd: string = "";
-}
+

@@ -9,4 +9,6 @@ export interface IArtist{
     popularity: number;
     topSongs: string;
     id: string;
+    following: boolean;
+    followButtonVisible: boolean;
 }
