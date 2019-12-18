@@ -14,10 +14,12 @@ WORKDIR /app
 COPY . .
 WORKDIR /app/Spotify-Project/src/app
 RUN npm install
-
-RUN npm install -g @angular/cli@7.3.9
+RUN npm audit fix
+RUN npm install -g @angular/cli
 
 # add app
 
 # start app
-CMD npm start
+CMD ng serve --host 0.0.0.0
+
+#CMD npm start
