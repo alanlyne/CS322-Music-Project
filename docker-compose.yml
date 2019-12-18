@@ -1,0 +1,25 @@
+version: '3'
+services:
+  backend:
+    build: ./python_backend
+    ports:
+      - "8080:8080"
+    #enviroment:
+      #frontend = "http://localhost:4200"      
+      #SPOTIPY_CLIENT_ID = 
+      #SPOTIPY_CLIENT_SECRET = 
+      #SPOTIPY_REDIRECT_URI= 'http://localhost:8080/tester'
+    #command:
+    #  - "python app_launch.py"
+
+  frontend:
+    build: .
+    ports:
+      - "4200:4200"
+    #enviroment:
+      #frontend = "http://localhost:4200"      
+      #SPOTIPY_CLIENT_ID = 
+      #SPOTIPY_CLIENT_SECRET = 
+      #SPOTIPY_REDIRECT_URI= 'http://localhost:8080/tester'
+    #command:
+    #  - "python app_launch.py"
