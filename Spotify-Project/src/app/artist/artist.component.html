@@ -25,7 +25,7 @@
 
         <!-- Genre Input Field-->
         <div class="form-group">
-            <label for="genre">Enter Desired Genre:</label>
+            <label for="genre" class="labels">Enter Desired Genre:</label>
             <!-- <input type="text" id="genre" name="genre" placeholder="Genre" [(ngModel)]="genre" class="searchInputs form-control"> -->
             <!-- Potential Autocomplete solution 
               Will require year input to be changed as well if we go with this, cant apply bootstrap input class to it (dont think I can anyway)
@@ -50,7 +50,7 @@
         <br>
         <!-- Year Input Field-->
         <div class="form-group">
-            <label for="year">Enter Desired Year:</label>
+            <label for="year" class="labels">Enter Desired Year:</label>
             <div>
                 <input type="text" id="year" name="year"  [(ngModel)]="year" class="searchInputs" style="height:40px;">
             </div>
@@ -58,7 +58,7 @@
         <br>
         <!-- Obscurity Slider Bar -->
         <div class="slidecontainer form-group">
-            <label for="myRange">Obscurity:</label>
+            <label for="myRange" class="labels">Obscurity:</label>
             <input  type="range" min="1" max="99" value="1" class="slider form-control" [(ngModel)]="obscurity" id="myRange">
         </div>
         <br>
@@ -90,7 +90,7 @@
 
                 <!-- <div (click)="viewArtistCover(j.id)" [innerHTML] = "j.name" class="artistImageArtistName" style="cursor: pointer;"></div> -->
                 <div>
-                    <button class="artistImageArtistName"  [innerHTML] = "j.name" (click)="viewArtistCover(j.id, x, y)"></button>
+                    <button class="artistImageArtistName" style="color: white;" [innerHTML] = "j.name" (click)="viewArtistCover(j.id, x, y)"></button>
                     
                 </div>
             </div>
