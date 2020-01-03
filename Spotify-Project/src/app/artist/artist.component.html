@@ -1,49 +1,29 @@
-<!-- <head>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> 
-     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> 
-</head> -->
-
 <div class="form-group entireDiv">
     <hr>
-    <!-- <div style="text-align: center; border: white; border-style: solid;">
-       Want more customers?
-       Get your brand here for ONLY $9.99 per month
-    </div> -->
     <div *ngIf="htmlYouWantToAdd" [innerHTML]="htmlYouWantToAdd"></div>
-    <!--Calls artists.component.ts which then calls service -->
-
     <!-- Logo Div -->
     <div class="logoDiv">
         <img class="logoPic" src='https://i.imgur.com/inXRmvI.png'>
     </div>
     <!-- Search Box Div -->
     <div *ngIf = "!searchDone" class="searchBoxDiv">
+        <!--X used to close Search Box-->
         <div *ngIf="oneSearchDone" class="x" style="text-align: right;">
             <i class="material-icons" style="padding-right: 2%; padding-top: 2%; cursor: pointer;" (click)="closeSearch()">close</i>
         </div>
         <br>
-        <!-- Genre Input Field-->
+        <!-- Genre Input Field with autocomplete functionality-->
         <div class="form-group">
             <label for="genre">Enter Desired Genre:</label>
-            <!-- <input type="text" id="genre" name="genre" placeholder="Genre" [(ngModel)]="genre" class="searchInputs form-control"> -->
-            <!-- Potential Autocomplete solution 
-              Will require year input to be changed as well if we go with this, cant apply bootstrap input class to it (dont think I can anyway)
-              -->
             <div class="ng-autocomplete" style = "width: 60%; margin: auto;">
-                <ng-autocomplete 
-                  id="genre" name="genre" placeholder="Genre" 
-                  [data]="genreList1"
-                  [searchKeyword]="keyword"
-                  [itemTemplate]="itemTemplate"
-                  [notFoundTemplate]="notFoundTemplate"
-                  [(ngModel)]="genre">                                 
+                <ng-autocomplete  id="genre" name="genre" placeholder="Genre" [data]="genreList1" [searchKeyword]="keyword"
+                    [itemTemplate]="itemTemplate" [notFoundTemplate]="notFoundTemplate" [(ngModel)]="genre">                                 
                 </ng-autocomplete>
                 <ng-template #itemTemplate let-item>
-                <a [innerHTML]="item"></a>
+                    <a [innerHTML]="item"></a>
                 </ng-template>
                 <ng-template #notFoundTemplate let-notFound>
-                <div [innerHTML]="notFound"></div>
+                    <div [innerHTML]="notFound"></div>
                 </ng-template>
             </div>
         </div>
@@ -62,6 +42,7 @@
             <input  type="range" min="1" max="99" value="1" class="slider form-control" [(ngModel)]="obscurity" id="myRange">
         </div>
         <br>
+        <!--Search Button-->
         <div class="searchBoxButtonDiv">
             <button class="btn btn-primary greenButton viewMore" (click)="search()">Search</button>
         </div>
@@ -77,21 +58,25 @@
     <div class="table-responsive tableArtistDiv" >
         <div class="artistList" *ngFor="let i of artistList2; let x = index" >
             <div class="artistImageTitle" *ngFor="let j of artistList2[x]; let y = index ">
-                
-                <iframe id=ifr{{j.id}} class="artistImage" [src]= "j.topSongs | safe" frameborder="0" allowtransparency="true" allow="encrypted-media" style="display: none; "></iframe>
-
+                <!--Artist's top songs-->
+                <iframe id=ifr{{j.id}} class="artistImage" [src]= "j.topSongs | safe" frameborder="0" allowtransparency="true"
+                    allow="encrypted-media" style="display: none; ">
+                </iframe>
+                <!--Follow Favicon-->
                 <div style="position: relative;">
-                    <i *ngIf="!j.following && j.followButtonVisible && loggedIn" (click) = "followArtist(x, y)" class="fa fa-heart-o" style="z-index: 1; position: absolute; font-size: 25px; padding: 5px;  text-shadow: 2px 2px 0 #000;"></i>
-                    <i *ngIf="j.following && j.followButtonVisible && loggedIn" (click) = "followArtist(x, y)" class="fa fa-heart" style="z-index: 1; position: absolute; font-size: 25px; padding: 5px; color:#1DB954;  text-shadow: 1px 1px 0 white;"></i>
-                    
-                    <img id=img{{j.id}} [src] = "j.images.length > 0 ? j.images[0].url : 'http://i.imgur.com/nszu54A.jpg' " [title]=j.name alt="" class="artistImage" style="padding-bottom: 5px;">
+                    <i *ngIf="!j.following && j.followButtonVisible && loggedIn" (click) = "followArtist(x, y)" class="fa fa-heart-o"
+                        style="z-index: 1; position: absolute; font-size: 25px; padding: 5px;  text-shadow: 2px 2px 0 #000;">
+                    </i>
+                    <i *ngIf="j.following && j.followButtonVisible && loggedIn" (click) = "followArtist(x, y)" class="fa fa-heart"
+                        style="z-index: 1; position: absolute; font-size: 25px; padding: 5px; color:#1DB954;  text-shadow: 1px 1px 0 white;">
+                    </i>
+                    <!--Artist Cover Photo-->
+                    <img id=img{{j.id}} [src] = "j.images.length > 0 ? j.images[0].url : 'http://i.imgur.com/nszu54A.jpg' " [title]=j.name alt=""
+                        class="artistImage" style="padding-bottom: 5px;">
                 </div>
-
-
-                <!-- <div (click)="viewArtistCover(j.id)" [innerHTML] = "j.name" class="artistImageArtistName" style="cursor: pointer;"></div> -->
+                <!--Artist Name-->
                 <div>
                     <button class="artistImageArtistName"  [innerHTML] = "j.name" (click)="viewArtistCover(j.id, x, y)"></button>
-                    
                 </div>
             </div>
         </div>
@@ -99,7 +84,7 @@
     <div *ngIf="noResults" style="text-align: center;">  
         NO RESULTS FOUND PLEASE TRY AGAIN OR CHANGE YOUR SEARCH
     </div>
-    <!-- Button to show up more results -->
+    <!-- Button to show more results -->
     <div *ngIf = "(searchDone || newSearch) && !noResults " class="viewMoreDiv">
         <button type="button" class="btn btn-primary viewMore" (click)="viewMore()">Want More?</button>
     </div>

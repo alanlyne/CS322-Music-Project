@@ -5,7 +5,6 @@ html {
     overflow-x: hidden;
     max-width: 100%;
 }
-
 body {
     background-color: #191414;
     color: #FFFFFF;
@@ -13,5 +12,3 @@ body {
         spotify-circular-hebrew,Helvetica Neue,Helvetica,Arial,Hiragino Kaku Gothic Pro,
         Meiryo,MS Gothic,sans-serif;
 }
-
-
