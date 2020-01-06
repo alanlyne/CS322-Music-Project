@@ -23,8 +23,8 @@ CORS(app)
 # client_secret = sys.argv[2]
 redirect_uri = 'http://localhost:8080/tester'
 frontend = "http://localhost:4200"
-client_id = '825fb8e2f83e479e8823d725c9a2dc22'
-client_secret = '1922748a55104d14844fce59b489371c'
+client_id = ''
+client_secret = ''
 os.environ['SPOTIPY_CLIENT_ID'] = client_id
 os.environ['SPOTIPY_CLIENT_SECRET'] = client_secret
 os.environ['SPOTIPY_REDIRECT_URI'] = redirect_uri
