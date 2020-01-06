@@ -14,18 +14,15 @@ body {
   margin: 0;
   padding: 0;
 }
-
 #wrapper {
   display: flex;
   align-items: center;
   justify-content: center;
 }
-
 button {
   height: 20px;
   width: 100px;
 }
-
 div.container4 {
   height: 10em;
   position: relative }
@@ -37,22 +34,19 @@ div.container4 p {
   left: 50%;
   margin-right: -50%;
   transform: translate(-50%, -50%) }
-
-  div.container1 {
-    height: 10em;
-    position: relative }
-  div.container1 p {
-    margin: 0;
-    background: white;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    margin-right: -50%;
-    transform: translate(-50%, -50%) }
-
+div.container1 {
+  height: 10em;
+  position: relative }
+div.container1 p {
+  margin: 0;
+  background: white;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-right: -50%;
+  transform: translate(-50%, -50%) }
 
 /* Navigation Bar */
-
 ul {
   list-style-type: none;
   margin: 0;
@@ -60,11 +54,9 @@ ul {
   overflow: hidden;
   background-color: #333;
 }
-
 li {
   float: left;
 }
-
 li a {
   display: block;
   color: white;
@@ -72,16 +64,12 @@ li a {
   padding: 14px 16px;
   text-decoration: none;
 }
-
 li a:hover:not(.active) {
   background-color: #191414;
 }
-
 ul.topnav li.right {
   float: right;
 }
-
 .active {
   background-color: #1DB954;
 }
-

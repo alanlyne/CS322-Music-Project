@@ -5,45 +5,35 @@
 }
 
 .entireDiv {
-    font-family: spotify-circular,spotify-circular-cyrillic,spotify-circular-arabic, spotify-circular-hebrew,Helvetica Neue,Helvetica,Arial,Hiragino Kaku Gothic Pro,
-        Meiryo,MS Gothic,sans-serif; 
+    font-family: spotify-circular,spotify-circular-cyrillic,spotify-circular-arabic, spotify-circular-hebrew,Helvetica Neue,Helvetica,Arial,
+        Hiragino Kaku Gothic Pro,Meiryo,MS Gothic,sans-serif;
     background: rgba(0,0,0,0);
 }
 
 /* Artist Names under cover photo */
 .artistImageArtistName {
-    /* text-align: center; */
-    
-    /* padding-bottom: 5px; */
-    /* if name is too big cut off */
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    /* background-color: #1DB954; */
     background-color: #191414;
     color: white !important;
     border-radius:42px;
     text-decoration:none;
-    /* font-weight: 600; */
     border: none;
     max-width: 250px;
     text-align: center;
 
 
-} 
+}
 
 .artistImageArtistName.truncate {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-  }
+}
 
 .artistImageArtistName:hover {
-    /* background-color: #191414; */
     background-color: #1DB954;
-    /* background-color: white; */
-    /* color: black; */
-    
 }
 
 /*Show more results button*/
@@ -69,7 +59,7 @@
 .tableArtistDiv {
     margin: auto;
     overflow: hidden;
-    padding-left: 3%; 
+    padding-left: 3%;
     padding-right: 3%;
 }
 
@@ -81,18 +71,16 @@
     justify-self: stretch;
     align-content: space-evenly;
     justify-content: space-evenly;
-    
+
 }
+
 /*Artist name under photo*/
 .artistImageTitle {
-    /* display: grid; */
     grid-template-rows: 250px auto;
     padding: 10px;
     padding-bottom: 20px;
     text-align: center;
 }
-
-
 
 /*All stylying for obscure slider*/
 .slidecontainer {
@@ -136,7 +124,7 @@
     cursor: pointer;
 }
 
-/*Search box div Unsure about border, but no border looks weird to me too*/
+/*Search box div*/
 .searchBoxDiv {
     border: #4CAF50;
     border-style: solid;
@@ -171,6 +159,50 @@
 .logoPic {
     width: 50%;
     height: 50%;
+}
+
+.SearchBoxX {
+    padding-right: 2%;
+    padding-top: 2%;
+    cursor: pointer;
+}
+
+.genreDiv {
+    width: 60%;
+    margin: auto;
+}
+
+.yearInput {
+    height:40px;
+}
+
+.newSearchDiv {
+    margin: auto !important; text-align: center;
+}
+
+.unFollowed {
+    z-index: 1;
+    position: absolute;
+    font-size: 25px;
+    padding: 5px;
+    text-shadow: 2px 2px 0 #000;
+}
+
+.followed {
+    z-index: 1;
+    position: absolute;
+    font-size: 25px;
+    padding: 5px;
+    color:#1DB954;
+    text-shadow: 1px 1px 0 white;
+}
+
+.SearchBoxXDiv {
+    text-align: right;
+}
+
+.noResultsFound {
+    text-align: center;
 }
 
 .labels {

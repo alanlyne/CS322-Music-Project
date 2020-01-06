@@ -18,21 +18,22 @@ export class ArtistComponent implements OnInit {
   noResults: boolean;
   oneSearchDone: boolean = false;
   genreList1: string[];
-  followingVisible: boolean = true;
+  newSearch: boolean = false;
+  maxCount: number = 5;
+  searchDone: boolean = false;
+  htmlYouWantToAdd: string = "";
 
   @Input()
   loggedIn: boolean = false;
-
 
   constructor(private artistService: ArtistService) {}
 
   ngOnInit(): void {
     this.artistService.getGenres().subscribe(data => {
-      console.log(data);
       this.genreList1 = data;
     });
   }
-
+  //Follow and Unfollow Artists
   followArtist(i: number, j: number): void { 
     let artist = this.artistList2[i][j];
     artist.following = !artist.following;
@@ -46,15 +47,13 @@ export class ArtistComponent implements OnInit {
       })
     }
   }
-
+  //Close search box with X
   closeSearch(): void {
-    console.log("CLICKED")
     this.searchDone = true;
   }
-
+  //Search for Artists with Users Inputs
   search(): void {
     this.oneSearchDone = true;
-    //Reset on new Serach 
     this.newGenreCheck = true;
     this.noResults = false;
     //Loop through genre list check if previously there
@@ -67,6 +66,7 @@ export class ArtistComponent implements OnInit {
     this.artistList2 = []
     this.searchDone = true;
     this.noResults = false;
+    //Set parameters for backend query
     this.artistService.setSearchParams(this.genre.trim().replace(/\s/g, "-"), this.year, this.obscurity, true);
     this.artistService.SearchArtist().subscribe(res => {
       //Array of artist objects
@@ -82,7 +82,7 @@ export class ArtistComponent implements OnInit {
       return this.htmlYouWantToAdd;
     })
   }
-
+  //Fetch 5 more results for users search
   viewMore(): void {
     this.searchDone = true;
     this.artistService.setSearchParams(this.genre, this.year, this.obscurity, false);
@@ -94,27 +94,21 @@ export class ArtistComponent implements OnInit {
         this.artistList[i].followButtonVisible = true;
       }
       this.artistList2.push(this.artistList);
-      console.log(this.artistList2);
     });
   }
-
-  increaseMaxCount(): void {
-    this.maxCount += 5;
-  }
-
+  //Reopen Search Box
   searchPopUp(): void {
     this.searchDone = false;
     this.newSearch = true;
     this.maxCount = 0;
   }
-
+  //Toggle between Artist Cover photo or top songs
   viewArtistCover(id: string, i: number, j: number): void {
     let artist = this.artistList2[i][j];
     artist.following = !artist.following;
     artist.followButtonVisible = !artist.followButtonVisible;
     var img = document.getElementById("img"+id);
     var ifr = document.getElementById("ifr"+id);
-
     if (img.style.display === "none") {
       img.style.display = "unset";
       ifr.style.display = "none";
@@ -123,14 +117,6 @@ export class ArtistComponent implements OnInit {
       img.style.display = "none";
     }
   }
-
-
-
-  newSearch: boolean = false;
-  viewSongs: boolean = false;
-  maxCount: number = 5;
-  searchDone: boolean = false;
-  htmlYouWantToAdd: string = "";
 }
 
 
