@@ -16,10 +16,8 @@ run
 Non docker setup
 
 setup
-    Python3 and pip installed
-    node installed
-    
-   
+    node, Python3 and pip installed
+  
 Non docker setup
    Backend
     
