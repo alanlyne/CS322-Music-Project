@@ -1,12 +1,10 @@
  pre-setup
-    keys
-    client_id key and client_secret key must be gotten from https://developer.spotify.com
-           
-    put client key into the /Spotify-Project/src/app/auth/auth.service.ts line 28
-            
-    put client_id key and client_secret key into the /python_backend/app_launch.py lines 26, 27
-     
-    add redirect URL in the spotify app dashboard we are using http://localhost:8080/login
+ 
+     keys    
+         client_id key and client_secret key must be gotten from https://developer.spotify.com    
+         put client key into the /Spotify-Project/src/app/auth/auth.service.ts line 28            
+         put client_id key and client_secret key into the /python_backend/app_launch.py lines 26, 27     
+     add redirect URL in the spotify app dashboard we are using http://localhost:8080/login
       
 Docker setup
 setup
