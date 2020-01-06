@@ -1,36 +1,34 @@
-import time
 import json
-import requests
-import sys
-import spotipy
 import os
-from flask import Flask, request, session, redirect
-from spotipy import oauth2
-import spotipy.util as util
+import sys
+
+import requests
+import spotipy
+from flask import Flask, redirect, request
 from flask.json import jsonify
 from flask_cors import CORS
+from spotipy import oauth2
 # secrets
-from spotipy.client import Spotify 
+from spotipy.client import Spotify
+
 global user
 
 user = []
 app = Flask(__name__)
-#print(secrets.token_urlsafe(16))
-#app.config['SERVER_NAME'] = 'example.com' 
 
-app.config["SECRET_KEY"]="FMx6MtDOQUOCh7C8uQhtVg"
-#app.config["SECRET_KEY"]=secrets.token_urlsafe(16)
-#cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
+app.config["SECRET_KEY"] = "FMx6MtDOQUOCh7C8uQhtVg"
+# app.config["SECRET_KEY"]=secrets.token_urlsafe(16)
 CORS(app)
 # client_id = sys.argv[1]
 # client_secret = sys.argv[2]
 redirect_uri = 'http://localhost:8080/tester'
 frontend = "http://localhost:4200"
-client_id = ''
-client_secret = ''
+client_id = '825fb8e2f83e479e8823d725c9a2dc22'
+client_secret = '1922748a55104d14844fce59b489371c'
 os.environ['SPOTIPY_CLIENT_ID'] = client_id
 os.environ['SPOTIPY_CLIENT_SECRET'] = client_secret
 os.environ['SPOTIPY_REDIRECT_URI'] = redirect_uri
+
 
 class SpotInhear(Spotify):
 
@@ -52,20 +50,17 @@ class SpotifyApi(object):
     def generate_token(self, user_code):
         url = "https://accounts.spotify.com/api/token"
         data = {
-            #'grant_type': 'client_credentials',
+            # 'grant_type': 'client_credentials',
             'grant_type': 'authorization_code',
             'code': user_code,
             'redirect_uri': "http://localhost:8080/login",
-            #'scope': 'user-follow-modify'
         }
-
         response = requests.post(url, data=data, auth=(
             self.client_id, self.client_secret))
 
         return response.json()
 
     def get_spotify_toolbox(self, requesting):
-        # auth_obj = oauth2.SpotifyOAuth(client_id, client_secret, redirect_uri):
         if 'code' in requesting.args:
             code = requesting.args.get('code')
 
@@ -74,45 +69,37 @@ class SpotifyApi(object):
             raise code
         else:
             code = "This was unexpected, where my queries at?"
-
-        # token=self._id.get_access_token(code)
-        # print("----------------token-----------------")
-            # print(token)
-
-        #token = self.generate_token(code)
-
-        #token = token['access_token']
-        #spotify_toolbox = spotipy.Spotify(client_credentials_manager=self._id, auth=token)
-
         spotify_toolbox = spotipy.Spotify(
             client_credentials_manager=self.client_test)
-        print("-------------------------------------")
         return spotify_toolbox
+
 
 @app.route('/getgen')
 def getgen():
     f = open("my-file.txt", "r")
     red = f.read()
-    li = list(red.split(",")) 
+    li = list(red.split(","))
     li.sort()
     f.close()
     return jsonify(li)
 
+
 def addgen(genre):
     f = open("my-file.txt", "r")
     red = f.read()
-    li = list(red.split(",")) 
+    li = list(red.split(","))
     f.close()
-    if genre not in li: 
+    if genre not in li:
         a = open("my-file.txt", "a")
         a.write(","+str(genre))
         a.close()
+
 
 def build_query(content):
     temp = str(content)
     q = ""
     for char in temp:
-        if char is "'" or char is "{" or char is "}":
+        if char == "'" or char == "{" or char == "}":
             pass
         else:
             q += char
@@ -121,96 +108,52 @@ def build_query(content):
 
 def build_offset(offset, nudge, results):
     maxi = int(results["artists"]["total"])
-    offset = (maxi*(int(offset)/100)) 
+    offset = (maxi*(int(offset)/100))
     offset = int(round(offset))
     offset += int(nudge)
-    if int(nudge)>5:
+    if int(nudge) > 5:
         return offset
-    if maxi<offset+5:
+    if maxi < offset+5:
         offset = maxi-5
     if (maxi <= 5):
         offset = 0
-
     return offset
+
 
 @app.route('/logout')
 def logout():
-    if len(user)>0:
+    if len(user) > 0:
         user.pop()
-    
     return jsonify("logged out")
+
 
 @app.route('/login')
 def login():
     code = request.args.get('code')
     token = SpotifyApi().generate_token(code)
-    print(token)
-    #session["user"] = token
-    if len(user)==0:
+    if len(user) == 0:
         user.append(token)
     else:
         user[0] = token
-    #print(session["user"])
-    
     return redirect(frontend+"/close")
-    return "done"
 
-@app.route('/follow', methods=['GET','POST'])
+
+@app.route('/follow', methods=['GET', 'POST'])
 def gettoken():
-
-    #content = request.get_json()
-    try:
-        art_id = request.headers.get('id')
-        print(art_id)
-       # art_id = content.pop("id")
-    except:
-        print("doomed to fail with get")
-    for key, value in session.items() :
-        print (key, value)
-    print("+++++++++++++++++++++++++++++++++++++++++++++")
-
-    #token = session["user"]
-    token = user[0]
-    print(token)
-    toekntest = token["access_token"]
-    follow_tool = SpotInhear(auth=toekntest)
-    
-    #print(follow_tool.current_user())
-    print("+++++++++++++++++++++++++++++++++++++++++++++")
-
-    #art_id = "1dfeR4HaWDbWqFHLkxsg1d"
-
+    art_id = request.headers.get('id')   
+    token = user[0]    
+    follow_tool = SpotInhear(auth=token["access_token"])
     follow_tool.user_follow_artists(ids=[art_id])
     return jsonify("followed")
 
-@app.route('/unfollow', methods=['GET','POST'])
+
+@app.route('/unfollow', methods=['GET', 'POST'])
 def unfollow():
-
-    #content = request.get_json()
-    try:
-        art_id = request.headers.get('id')
-        print(art_id)
-       # art_id = content.pop("id")
-    except:
-        print("doomed to fail with get")
-    for key, value in session.items() :
-        print (key, value)
-    print("+++++++++++++++++++++++++++++++++++++++++++++")
-
-    #token = session["user"]
+    art_id = request.headers.get('id')
     token = user[0]
-    print(token)
-    toekntest = token["access_token"]
-    follow_tool = SpotInhear(auth=toekntest)
-    
-    #print(follow_tool.current_user())
-    print("+++++++++++++++++++++++++++++++++++++++++++++")
-
-    #art_id = "1dfeR4HaWDbWqFHLkxsg1d"
-
+    follow_tool = SpotInhear(auth=token["access_token"])
     follow_tool.user_unfollow_artists(ids=[art_id])
     return jsonify("unfollow")
-
 
 
 @app.route('/search', methods=['GET', 'POST'])
@@ -229,7 +172,6 @@ def search():
         results = toolbox.search(
             q=query, limit=1, offset=0, type="artist", market="IE")
 
-
         offset = build_offset(offset, nudge, results)
 
         if int(results["artists"]["total"]):
@@ -238,19 +180,15 @@ def search():
         results = toolbox.search(
             q=query, limit=5, offset=offset, type="artist", market="IE")
         return jsonify(results)
-
     return("NO JSON OBJ IN POST")
+
 
 @app.route('/getUser', methods=['GET', 'POST'])
 def getUser():
     token = user[0]
-    toekntest = token["access_token"]
-
-    sp = SpotInhear(toekntest)
-    
-    temp = sp.current_user()
-    print(temp)
-    return jsonify(temp)
+    sp = SpotInhear(auth=token["access_token"])
+    user_data = sp.current_user()
+    return jsonify(user_data)
 
 
 if __name__ == '__main__':
