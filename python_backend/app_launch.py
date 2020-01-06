@@ -23,8 +23,8 @@ CORS(app)
 # client_secret = sys.argv[2]
 redirect_uri = 'http://localhost:8080/tester'
 frontend = "http://localhost:4200"
-client_id = ''
-client_secret = ''
+client_id = 'e24f768d9a5346509dd81d3f6811bd66'
+client_secret = 'bb5e0f916dcc4ccb953833c2cdc7f2b3'
 os.environ['SPOTIPY_CLIENT_ID'] = client_id
 os.environ['SPOTIPY_CLIENT_SECRET'] = client_secret
 os.environ['SPOTIPY_REDIRECT_URI'] = redirect_uri
@@ -45,7 +45,7 @@ class SpotifyApi(object):
     client_secret = os.environ['SPOTIPY_CLIENT_SECRET']
     redirect_uri = os.environ['SPOTIPY_REDIRECT_URI']
     _id = oauth2.SpotifyOAuth(client_id, client_secret, redirect_uri)
-    client_test = oauth2.SpotifyClientCredentials()
+    client = oauth2.SpotifyClientCredentials()
 
     def generate_token(self, user_code):
         url = "https://accounts.spotify.com/api/token"
@@ -70,7 +70,7 @@ class SpotifyApi(object):
         else:
             code = "This was unexpected, where my queries at?"
         spotify_toolbox = spotipy.Spotify(
-            client_credentials_manager=self.client_test)
+            client_credentials_manager=self.client)
         return spotify_toolbox
 
 
@@ -186,10 +186,12 @@ def search():
 @app.route('/getUser', methods=['GET', 'POST'])
 def getUser():
     token = user[0]
+    print("++++++++++++++++++++(++++++++++++++++++++")
+    print(token)
     sp = SpotInhear(auth=token["access_token"])
     user_data = sp.current_user()
     return jsonify(user_data)
 
 
 if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0', port=8080)
+    app.run(debug=False, host='0.0.0.0', port=8080)
