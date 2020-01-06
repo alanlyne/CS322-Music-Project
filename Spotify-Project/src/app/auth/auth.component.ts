@@ -25,7 +25,6 @@ export class AuthComponent implements OnInit{
                 console.log(this.userInfo);
             })
         }
-        console.log("init");  
     }
 
     Authorize() : void {
