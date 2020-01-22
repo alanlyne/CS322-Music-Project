@@ -1,7 +1,7 @@
-import { Injectable, Output } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http'; 
-import { Observable, throwError, EMPTY } from 'rxjs';
-import { catchError, map, tap } from 'rxjs/operators';
+import { Observable, EMPTY} from 'rxjs';
+import { catchError} from 'rxjs/operators';
 import { IUser } from './user/user';
 
 @Injectable({
@@ -25,7 +25,7 @@ export class AuthService {
     baseUrl = 'http://localhost:8080/';
     getUserEndpoint = this.baseUrl + 'getUser';
 
-    client_id = "825fb8e2f83e479e8823d725c9a2dc22";
+    client_id = "e24f768d9a5346509dd81d3f6811bd66";
     redirect_uri: string = "http://localhost:8080/login";
     logoutEndpoint: string = "http://localhost:8080/logout";
     url: string = "https://accounts.spotify.com/authorize?client_id=" + this.client_id + "&response_type=code&redirect_uri=" + this.redirect_uri + "&scope=user-follow-modify%20user-read-private%20user-read-email&state=34fFs29kd09&show_dialog=true";

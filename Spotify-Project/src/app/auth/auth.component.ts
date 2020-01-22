@@ -14,9 +14,7 @@ export class AuthComponent implements OnInit{
     timeout: number = 5000;
     clicked: boolean = false;
 
-    constructor(private authService: AuthService){
-
-    }
+    constructor(private authService: AuthService){}
 
     ngOnInit(): void {
         if(this.userInfo == null) {

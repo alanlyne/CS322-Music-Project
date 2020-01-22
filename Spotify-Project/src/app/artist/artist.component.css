@@ -1,4 +1,4 @@
-    /* Album Cover Image size */
+/* Album Cover Image size */
 .artistImage{
     width: 250px !important;
     height: 250px !important;
@@ -22,8 +22,6 @@
     border: none;
     max-width: 250px;
     text-align: center;
-
-
 }
 
 .artistImageArtistName.truncate {
@@ -71,7 +69,6 @@
     justify-self: stretch;
     align-content: space-evenly;
     justify-content: space-evenly;
-
 }
 
 /*Artist name under photo*/
