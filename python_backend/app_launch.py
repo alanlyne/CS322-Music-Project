@@ -186,8 +186,6 @@ def search():
 @app.route('/getUser', methods=['GET', 'POST'])
 def getUser():
     token = user[0]
-    print("++++++++++++++++++++(++++++++++++++++++++")
-    print(token)
     sp = SpotInhear(auth=token["access_token"])
     user_data = sp.current_user()
     return jsonify(user_data)
