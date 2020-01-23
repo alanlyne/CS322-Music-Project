@@ -33,6 +33,7 @@ export class ArtistComponent implements OnInit {
       this.genreList1 = data;
     });
   }
+
   //Follow and Unfollow Artists
   followArtist(i: number, j: number): void { 
     let artist = this.artistList2[i][j];
@@ -47,10 +48,12 @@ export class ArtistComponent implements OnInit {
       })
     }
   }
+
   //Close search box with X
   closeSearch(): void {
     this.searchDone = true;
   }
+
   //Search for Artists with Users Inputs
   search(): void {
     this.oneSearchDone = true;
@@ -72,7 +75,7 @@ export class ArtistComponent implements OnInit {
       //Array of artist objects
       this.artistList = res["artists"]["items"];
       //If results found and genre not previously in list add new genre to list for autocomplete
-      this.artistList.length > 0 && this.newGenreCheck == true ? this.genreList1.push(this.genre.trim().replace(/\s/g, "-")) && console.log("New Genre Added: " + this.genre.trim().replace(/\s/g, "-")) : "" ;
+      this.artistList.length > 0 && this.newGenreCheck == true ? this.genreList1.push(this.genre.trim().replace(/\s/g, "-")) : "" ;
       this.artistList.length == 0 ? this.noResults = true : this.noResults = false;
         for(var i = 0; i<this.artistList.length; i++) {
           this.artistList[i].topSongs = "https://open.spotify.com/embed/artist/" + this.artistList[i].id;
@@ -82,6 +85,7 @@ export class ArtistComponent implements OnInit {
       return this.htmlYouWantToAdd;
     })
   }
+
   //Fetch 5 more results for users search
   viewMore(): void {
     this.searchDone = true;
@@ -96,12 +100,14 @@ export class ArtistComponent implements OnInit {
       this.artistList2.push(this.artistList);
     });
   }
+
   //Reopen Search Box
   searchPopUp(): void {
     this.searchDone = false;
     this.newSearch = true;
     this.maxCount = 0;
   }
+
   //Toggle between Artist Cover photo or top songs
   viewArtistCover(id: string, i: number, j: number): void {
     let artist = this.artistList2[i][j];

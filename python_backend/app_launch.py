@@ -45,7 +45,7 @@ class SpotifyApi(object):
     client_secret = os.environ['SPOTIPY_CLIENT_SECRET']
     redirect_uri = os.environ['SPOTIPY_REDIRECT_URI']
     _id = oauth2.SpotifyOAuth(client_id, client_secret, redirect_uri)
-    client_test = oauth2.SpotifyClientCredentials()
+    client = oauth2.SpotifyClientCredentials()
 
     def generate_token(self, user_code):
         url = "https://accounts.spotify.com/api/token"
@@ -70,7 +70,7 @@ class SpotifyApi(object):
         else:
             code = "This was unexpected, where my queries at?"
         spotify_toolbox = spotipy.Spotify(
-            client_credentials_manager=self.client_test)
+            client_credentials_manager=self.client)
         return spotify_toolbox
 
 
@@ -192,4 +192,4 @@ def getUser():
 
 
 if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0', port=8080)
+    app.run(debug=False, host='0.0.0.0', port=8080)

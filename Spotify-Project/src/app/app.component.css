@@ -4,7 +4,8 @@
     top: -150px;
     opacity: 0.5;
     -webkit-animation: move 15s linear infinite;
-    z-index: -1; }
+    z-index: -1; 
+}
 
 @-webkit-keyframes move{
     
@@ -51,8 +52,6 @@
     animation: rotateY 10s infinite linear;
 }
 
-
-
 .content2{
     position: absolute;
     left: 5%;
@@ -63,14 +62,12 @@
     z-index: -1;
 }
 
-
 .qm2 {
     width: 40%;
     height: auto;
     -webkit-animation: rotateY 8s infinite linear;
     animation: rotateY 8s infinite linear;
 }
-
 
 .content3{
     position: absolute;
@@ -81,7 +78,6 @@
     animation: move 8s linear infinite;
     z-index: -1;
 }
-
 
 .qm3 {
     width: 40%;
@@ -100,7 +96,6 @@
     z-index: -1;
 }
 
-
 .qm4 {
     width: 35%;
     height: auto;
@@ -117,7 +112,6 @@
     animation: move 10s linear infinite;
     z-index: -1;
 }
-
 
 .qm5 {
     width: 35%;
@@ -136,7 +130,6 @@
     z-index: -1;
 }
 
-
 .qm6 {
     width: 25%;
     height: auto;
@@ -153,7 +146,6 @@
     animation: move 7s linear infinite;
     z-index: -1;
 }
-
 
 .qm7 {
     width: 30%;
@@ -172,7 +164,6 @@
     z-index: -1;
 }
 
-
 .qm8 {
     width: 30%;
     height: auto;
@@ -190,7 +181,6 @@
     z-index: -1;
 }
 
-
 .qm9 {
     width: 80%;
     height: auto;
@@ -207,7 +197,6 @@
     animation: move 5s linear infinite;
     z-index: -1;
 }
-
 
 .qm10 {
     width: 20%;

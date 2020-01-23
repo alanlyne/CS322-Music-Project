@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { IArtist } from './artist';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { IUser } from '../auth/user/user';
 
 @Injectable({
     providedIn: 'root'
@@ -14,10 +13,8 @@ export class ArtistService{
     followArtistEndpoint = this.baseUrl + 'follow';
     unfollowArtistEndpoint = this.baseUrl + 'unfollow';
     
+    constructor(private http: HttpClient){}
 
-    constructor(private http: HttpClient){
-
-    }
     private headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'Accept': 'application/json',
@@ -37,7 +34,6 @@ export class ArtistService{
     getGenres() : Observable<string[]> {
       return this.http.get<string[]>(this.baseUrl + "getgen").pipe();
     }
-
 
     setSearchParams(genre: string, year: string, obscurity: number, newSearch: boolean): void {
       if(year != "") {
@@ -61,7 +57,6 @@ export class ArtistService{
       this.artistId.id = id;
       return this.http.get<string>(
         this.followArtistEndpoint,
-        //JSON.stringify(this.artistId),
         {headers: this.artistId}
       ).pipe()
     }
@@ -71,11 +66,7 @@ export class ArtistService{
       this.artistId.id = id;
       return this.http.get<string>(
         this.unfollowArtistEndpoint,
-        //JSON.stringify(this.artistId),
         {headers: this.artistId}
       ).pipe()
-    }
-
-    
-    
+    }   
 }
